@@ -14,8 +14,7 @@ await logout()
   return (
     
     <div>
-        <p>Welcome{user?.displayName }</p>
-      <button onClick={handleSignOut}>logout</button>
+        
 
        
       

@@ -85,7 +85,7 @@ const PhoneSignUp = () => {
  }}>Cancel</button>
             </Link>
             &nbsp;
-            <button type="submit" style={{ backgroundColor:'#3352FF',
+            <button type="submit" style={{ backgroundColor:'#4c8bf5',
   color:'black',
   fontSize:'20px',
   padding: '10px 2px',
@@ -115,7 +115,7 @@ const PhoneSignUp = () => {
  }}>Cancel</button>
             </Link>
             &nbsp;
-            <button type="submit" style={{ backgroundColor:'#24a0ed',
+            <button type="submit" style={{ backgroundColor:'#4c8bf5',
   color:'black',
   fontSize:'20px',
   padding: '10px 2px',

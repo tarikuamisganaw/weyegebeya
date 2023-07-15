@@ -51,7 +51,7 @@ export function SignupForm(props) {
           onChange={e => setRegisterEmail(e.target.value)} />
         <Input type="password" placeholder="Password"
           onChange={e => setRegisterPasswordl(e.target.value)} />
-        <Input type="password" placeholder="Confirm Password" />
+        
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <button type="submit" onClick={regsiter} style={{backgroundColor:' #4c8bf5',
