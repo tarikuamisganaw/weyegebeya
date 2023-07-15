@@ -24,8 +24,7 @@ export function SignupForm(props) {
   const regsiter = async () => {
     try {
      
-      setRegisterEmail("")
-      setRegisterPasswordl("")
+      
       const user = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
@@ -33,6 +32,9 @@ export function SignupForm(props) {
 
 
       )
+      setRegisterEmail("");
+      setRegisterPasswordl("");
+
       
       
     } catch (error) {
