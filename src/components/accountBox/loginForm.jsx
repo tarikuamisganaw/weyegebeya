@@ -1,4 +1,4 @@
-import React, { useContext,useEffect,useState } from "react";
+import React, { useContext,useEffect,useState,useRef } from "react";
 import {
   BoldLink,
   BoxContainer,
@@ -7,7 +7,7 @@ import {
   MutedLink,
   SubmitButton,
 } from "./common";
-import {createUserWithEmailAndPassword, signOut} from 'firebase/auth'
+import {createUserWithEmailAndPassword, signOut,signInWithEmailAndPassword} from 'firebase/auth'
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 import { auth } from "../../firebase-config";
@@ -15,6 +15,8 @@ import GoogleButton from 'react-google-button'
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { ResetPassword } from "./ForgotPassword";
+import { async } from "@firebase/util";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 // import { GoogleLogin } from '@react-oauth/google';
 // import { FcGoogle } from "react-icons/fc";
@@ -29,7 +31,11 @@ export function LoginForm(props) {
 //   console.log("result")
 // }
 
-
+const emailRef = useRef()
+const passwordRef = useRef()
+const { login } = UserAuth()
+const [error, setError] = useState('')
+const [loading, setLoading] = useState(false)
 const [loginEmail,setLoginEmail]=useState("")
 const [loginPassword,setLoginPassword]=useState("")
 const {googleSignIn,user}=UserAuth()
@@ -45,17 +51,28 @@ await googleSignIn()
 
 
 }
-const handlePhonesigin=()=>{
-  
+async function handleSubmit(e) {
+  e.preventDefault()
+
+  try {
+    
+    setError(' ')
+    
+    setLoading(true)
+    await login(emailRef.current.value, passwordRef.current.value)
+    emailRef.current.value = ""
+    passwordRef.current.value = ""
+  }
+  catch {
+    setError('Failed to log in')
+  }
+  setLoading(false)
+
 }
 
-const login=()=>{
 
-}
-const logout=()=>{
-  
 
-}
+
 useEffect(()=>{
 if(user!=null){
   console.log('signedin')
@@ -65,13 +82,13 @@ if(user!=null){
   return (
     <BoxContainer>
       <FormContainer>
-        <Input type="email" placeholder="Email" style={{color:'black'}}
-        onChange={e => setLoginEmail(e.target.value)}/>
-        <Input type="password" placeholder="Password" 
-        onChange={e => setLoginPassword(e.target.value)} />
+      <Input ref={emailRef} type="email" placeholder="Email" style={{ color: 'black' }}
+         required />
+        <Input ref={passwordRef} type="password" placeholder="Password"
+         required />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
-      <MutedLink href="#" style={{color:'black'}}>Forget your password?</MutedLink>
+      <MutedLink href="/forgot" style={{color:'black'}}>Forget your password?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
       <button type="submit" style={{ backgroundColor:' #4c8bf5',
   color:'white',
@@ -81,7 +98,7 @@ if(user!=null){
   padding: '10px 10px',
   borderRadius: '5px',
   margin: '10px 0px',
-  borderColor:'transparent'}}>signin with email</button>
+  borderColor:'transparent'}} onClick={handleSubmit} >{!loading ? "Signin" : "loading"}</button>
              
      <GoogleButton  onClick={handleGoogleSignIn} style={{ backgroundColor:' #4c8bf5',
   color:'white',

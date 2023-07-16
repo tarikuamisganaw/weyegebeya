@@ -1,6 +1,6 @@
 import { useContext,createContext, useEffect,useState} from "react";
-import { useInRouterContext } from "react-router-dom";
-import { GoogleAuthProvider,signInWithPopup,
+
+import { GoogleAuthProvider,signInWithPopup,signInWithEmailAndPassword,sendPasswordResetEmail,
   signInWithRedirect,signOut,onAuthStateChanged,RecaptchaVerifier,signInWithPhoneNumber} from "firebase/auth";
 import { auth } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,17 @@ import { useNavigate } from "react-router-dom";
   export const AuthContextProvider=({children})=>{
     const [user,setUser]=useState({})
     const navigate=useNavigate()
+    const [currentUser, setCurrentUser] = useState()
+    const [loading, setLoading] = useState(true)
+    function login(email, password) {
+      return signInWithEmailAndPassword(auth, email, password)
+     
+  }
+
+  function resetPassword(email) {
+      return sendPasswordResetEmail(email)
+  }
+
     const googleSignIn=()=>{
       const provider=new GoogleAuthProvider()
       signInWithRedirect(auth,provider)
@@ -25,6 +36,7 @@ return signInWithPhoneNumber(auth,number,recaptchaVerifier)
     useEffect(()=>{
 const unsubscribe=onAuthStateChanged(auth,(currentUser)=>{
   setUser(currentUser)
+  setLoading(false)
   console.log('User',user)
   return()=>{
     unsubscribe();
@@ -34,10 +46,11 @@ const unsubscribe=onAuthStateChanged(auth,(currentUser)=>{
 })
 
     },[])
+  
     return( 
         
-        <AuthContext.Provider value={{googleSignIn,logout,user,setUpRecaptha}}>
-          {children}
+        <AuthContext.Provider value={{login,resetPassword,googleSignIn,logout,user,setUpRecaptha}}>
+          {!loading && children}
         </AuthContext.Provider>
     )
 

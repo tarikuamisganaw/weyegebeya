@@ -95,3 +95,5 @@ height:'100vh',    display:'flex',
   padding: '10px 60px',
   borderRadius: '5px',
   margin: '10px 0px',
+
+  flag --allow-unrelated-histories

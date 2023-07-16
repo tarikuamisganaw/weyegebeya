@@ -7,6 +7,7 @@ import {
   MutedLink,
   SubmitButton,
 } from "./common";
+import {  Alert } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { Marginer } from "../marginer";
@@ -18,9 +19,8 @@ export function SignupForm(props) {
   const { switchToSignin } = useContext(AccountContext);
   const [registerEmail, setRegisterEmail] = useState("")
   const [registerPassword, setRegisterPasswordl] = useState("")
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const [loginEmail, setLoginEmail] = useState("")
-  const [loginPassword, setLoginPassword] = useState("")
   const regsiter = async () => {
     try {
      
@@ -29,30 +29,29 @@ export function SignupForm(props) {
         auth,
         registerEmail,
         registerPassword
-
+       
 
       )
       setRegisterEmail("");
       setRegisterPasswordl("");
-
+      setSuccessMessage('success fully signed up');
       
       
     } catch (error) {
       console.log(error.message)
     }
   }
-  const handlePhonesignup=()=>{
-  
-  }
+ 
   
   return (
     <BoxContainer>
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
       <FormContainer>
         {/* <Input type="text" placeholder="Full Name" /> */}
         <Input type="email" placeholder="Email" style={{ color: 'black' }}
-          onChange={e => setRegisterEmail(e.target.value)} />
+          onChange={e => setRegisterEmail(e.target.value)}  value={registerEmail}/>
         <Input type="password" placeholder="Password"
-          onChange={e => setRegisterPasswordl(e.target.value)} />
+          onChange={e => setRegisterPasswordl(e.target.value)}  value={registerPassword}/>
         
       </FormContainer>
       <Marginer direction="vertical" margin={10} />

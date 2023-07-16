@@ -56,8 +56,9 @@ await logout()
     <div style={styles.container}>
       <div style={styles.sidebar}>
         <div style={styles.logo}>Admin Dashboard
-        <p>Welcome,{user?.displayName }</p>
+        
       </div>
+      <p>Welcome,{user?.displayName || user?.email}</p>
         <div style={styles.menu}>
           <div style={styles.menuItem}>
             <FiUser style={styles.menuIcon} /> Users

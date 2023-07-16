@@ -11,6 +11,8 @@ import Protected from "./components/Protected";
 import PhoneSignUp from "./components/PhoneSignUp";
 // import Dashboard from "./components/DashBoard";
 import Dashboard from "./components/Dashboard2";
+import { ResetPassword } from "./components/accountBox/ForgotPassword";
+
 // const AppContainer = styled.div`
 //   width: 100%;
 //   height: 100%;
@@ -38,7 +40,7 @@ function App() {
 
 {/* <Route exact path="/account" element={<Protected><Account/></Protected>}/> */}
 <Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
-
+<Route exact path="/forgot" element={<ResetPassword/>}/>
 {/* <Route exact path="/dashboard" element={<Dashboard/>}/> */}
     </Routes>
     
