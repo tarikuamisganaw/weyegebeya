@@ -37,7 +37,7 @@ return signInWithPhoneNumber(auth,number,recaptchaVerifier)
 const unsubscribe=onAuthStateChanged(auth,(currentUser)=>{
   setUser(currentUser)
   setLoading(false)
-  console.log('User',user)
+  
   return()=>{
     unsubscribe();
 

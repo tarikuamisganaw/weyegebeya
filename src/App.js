@@ -9,7 +9,7 @@ import { AuthContextProvider } from "./context/AuthContext";
 import Account from "./components/account";
 import Protected from "./components/Protected";
 import PhoneSignUp from "./components/PhoneSignUp";
-// import Dashboard from "./components/DashBoard";
+
 import Dashboard from "./components/Dashboard2";
 import { ResetPassword } from "./components/accountBox/ForgotPassword";
 
@@ -33,15 +33,15 @@ function App() {
    
     <Routes>
    
-    {/* <Route exact path="/"  element={<Home/>}/> */}
+
 
     <Route exact path="/"  element={<Login/>}/>
     <Route exact path="/phoneSignUp" element={<PhoneSignUp/>}/>
 
-{/* <Route exact path="/account" element={<Protected><Account/></Protected>}/> */}
+
 <Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
 <Route exact path="/forgot" element={<ResetPassword/>}/>
-{/* <Route exact path="/dashboard" element={<Dashboard/>}/> */}
+
     </Routes>
     
     </AuthContextProvider>
