@@ -58,7 +58,7 @@ await logout()
         <div style={styles.logo}>Admin Dashboard
         
       </div>
-      <p>Welcome,{user?.displayName || user?.email}</p>
+      <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p>
         <div style={styles.menu}>
           <div style={styles.menuItem}>
             <FiUser style={styles.menuIcon} /> Users
