@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
-
+import { UserAuth } from "./context/AuthContext";
 import { getAnalytics } from "firebase/analytics";
-import {getAuth} from 'firebase/auth'
-
+import {getAuth, updateProfile} from 'firebase/auth'
+import {getDownloadURL, getStorage,ref, uploadBytes} from 'firebase/storage'
+import profile from './images/icon.png'
 // TODO: Add SDKs for Firebase products that you want to use
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -35,5 +36,15 @@ const firebaseConfig = {
 
  const app = initializeApp(firebaseConfig);
 export const auth=getAuth(app)
-
+export const storage=getStorage(app)
 const analytics = getAnalytics(app);
+
+// export async function upload(file,user,setLoading){
+//   setLoading(true)
+// const fileRef=ref(storage,user.uid+'.png')
+// const snapshot=await uploadBytes(fileRef,file)
+// const photoURL= await getDownloadURL(fileRef,)
+// updateProfile(user,{photoURL})
+// setLoading(false)
+// alert("file uploaded")
+// }

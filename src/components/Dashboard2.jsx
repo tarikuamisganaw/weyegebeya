@@ -1,9 +1,11 @@
 import React from "react";
+import { useEffect,useState } from "react";
 import { FiUser, FiBarChart2, FiSettings } from "react-icons/fi";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
 import { Link } from 'react-router-dom'
 import { UserAuth } from "../context/AuthContext";
+import Profile from "./Profile";
 const Dashboard = () => {
   const users = [
     { id: 1, name: "John Doe", email: "john@example.com" },
@@ -51,14 +53,23 @@ await logout()
     console.log(error)
 }
     }
+    function handleClick(){
+
+    }
+    function handleChange(){
+      
+    }
+    const [profile,setProfile]=useState('../images/icon.png')
+   
 
   return (
     <div style={styles.container}>
       <div style={styles.sidebar}>
-        <div style={styles.logo}>Admin Dashboard
+        {/* <div style={styles.logo}>Admin Dashboard
         
-      </div>
-      <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p>
+      </div> */}
+      {/* <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p> */}
+     <Profile/>
         <div style={styles.menu}>
           <div style={styles.menuItem}>
             <FiUser style={styles.menuIcon} /> Users
@@ -81,7 +92,9 @@ await logout()
         </div>
       </div>
       <div style={styles.content}>
+      <div style={styles.logo}>Admin Dashboard
         
+        </div>
         <h2>Statistics</h2>
         <div style={styles.statistics}>
           {statistics.map((stat) => (

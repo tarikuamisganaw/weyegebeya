@@ -33,6 +33,7 @@ return signInWithPhoneNumber(auth,number,recaptchaVerifier)
       navigate('/')
     
     }
+  
     useEffect(()=>{
 const unsubscribe=onAuthStateChanged(auth,(currentUser)=>{
   setUser(currentUser)
