@@ -12,7 +12,7 @@ import PhoneSignUp from "./components/pages/PhoneSignUp";
 
 import Dashboard from "./components/pages/Dashboard2";
 import { ResetPassword } from "./components/accountBox/ForgotPassword";
-import AdminProFile from "./components/pages/AdminProFile";
+// import AdminProFile from "./components/pages/AdminProFile";
 import ProfileAdmin from "./components/pages/ProfileAdmin";
 
 // const AppContainer = styled.div`
