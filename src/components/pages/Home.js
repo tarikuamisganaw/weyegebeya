@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+import { UserAuth } from '../../context/AuthContext'
 const Home = () => {
     const {user,logout}=UserAuth()
     const handleSignOut=async()=>{

@@ -97,3 +97,8 @@ height:'100vh',    display:'flex',
   margin: '10px 0px',
 
   flag --allow-unrelated-histories
+  const styles={
+  .date-picker {
+    width: 50px !important;
+  }
+}

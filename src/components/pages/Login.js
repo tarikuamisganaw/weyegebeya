@@ -1,9 +1,9 @@
-import "./App.css";
+import "../../App.css";
 import styled from "styled-components";
-import { AccountBox } from "./components/accountBox";
-import back from './images/distibution.jpg'
+import { AccountBox } from "../accountBox";
+import back from '../../images/distibution.jpg'
 import { BrowserRouter,Route,Routes } from "react-router-dom";
-import Home from "./components/Home";
+
 const AppContainer = styled.div`
   width: 100%;
   height: 100%;

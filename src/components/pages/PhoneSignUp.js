@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import './Phone.css'
+import '../css/Phone.css';
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { SubmitButton } from "./accountBox/common";
+import { SubmitButton } from "../accountBox/common";
 // import { useUserAuth } from "../context/UserAuthContext";
-import { UserAuth } from "../context/AuthContext";
-import back from "../images/distibution.jpg"
+import { UserAuth } from "../../context/AuthContext";
+import back from '../../images/distibution.jpg'
 const PhoneSignUp = () => {
   const [error, setError] = useState("");
   const [number, setNumber] = useState("");
@@ -55,7 +55,7 @@ const PhoneSignUp = () => {
 }}>
       <div className="left" style={{}}>
       
-      <div className="p-4 box" style={{width:'70%',height:'30%',marginTop:'200px',marginLeft:'10px', border: '1px solid',
+      <div className="p-4 box" style={{width:'70%',height:'40%',marginTop:'200px',marginLeft:'10px', border: '1px solid',
         padding: '10px',
          
         /* box-shadow: h-offset v-offset blur */
@@ -70,7 +70,8 @@ const PhoneSignUp = () => {
               value={number}
               onChange={setNumber}
               placeholder="Enter Phone Number"
-              style={{width:'50%'}}
+              style={{width:'90%',height:'40px',fontSize:'17px'} }
+             
             />
             <div id="recaptcha-container"></div>
           </Form.Group>
@@ -102,6 +103,7 @@ const PhoneSignUp = () => {
               type="otp"
               placeholder="Enter OTP"
               onChange={(e) => setOtp(e.target.value)}
+              style={{width:'60%',height:'40px',fontSize:'17px'} }
             />
           </Form.Group>
           <div className="button-right">

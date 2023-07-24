@@ -4,8 +4,11 @@ import { FiUser, FiBarChart2, FiSettings } from "react-icons/fi";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
 import { Link } from 'react-router-dom'
-import { UserAuth } from "../context/AuthContext";
+import { UserAuth } from "../../context/AuthContext";
 import Profile from "./Profile";
+import ProfileAdmin from "./ProfileAdmin";
+import { useNavigate } from "react-router-dom";
+import ProfileInfo from "./ProfileInfo";
 const Dashboard = () => {
   const users = [
     { id: 1, name: "John Doe", email: "john@example.com" },
@@ -60,8 +63,11 @@ await logout()
       
     }
     const [profile,setProfile]=useState('../images/icon.png')
+    const navigate=useNavigate()
    
-
+const handleProfile=()=>{
+  navigate('/profile')
+}
   return (
     <div style={styles.container}>
       <div style={styles.sidebar}>
@@ -69,7 +75,8 @@ await logout()
         
       </div> */}
       {/* <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p> */}
-     <Profile/>
+     <ProfileInfo/>
+     
         <div style={styles.menu}>
           <div style={styles.menuItem}>
             <FiUser style={styles.menuIcon} /> Users
@@ -80,7 +87,18 @@ await logout()
           <div style={styles.menuItem}>
             <FiSettings style={styles.menuIcon} /> Settings
           </div>
-          <button onClick={handleSignOut} style={{backgroundColor:' #24a0e',
+         
+  <button onClick={handleProfile} style={{backgroundColor:' #24a0e',
+  color:'black',
+  fontSize:'17px',
+  height:'40px',
+  width:'150px',
+  padding: '10px 10px',
+  borderRadius: '5px',
+  margin: '10px 0px',
+  borderColor:'transparent'}}>update profile </button>
+        </div>
+        <button onClick={handleSignOut} style={{backgroundColor:' #24a0e',
   color:'black',
   fontSize:'17px',
   height:'40px',
@@ -89,7 +107,6 @@ await logout()
   borderRadius: '5px',
   margin: '10px 0px',
   borderColor:'transparent'}}>logout</button>
-        </div>
       </div>
       <div style={styles.content}>
       <div style={styles.logo}>Admin Dashboard

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import {upload} from '../firebase-config'
-import'./profile.css'
-import { UserAuth } from "../context/AuthContext";
-import { storage } from "../firebase-config";
+import {upload} from '../../firebase-config'
+import'../css/profile.css'
+import { UserAuth } from "../../context/AuthContext";
+import { storage } from "../../firebase-config";
 import { getDownloadURL, ref } from "firebase/storage";
 import { uploadBytes, } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
-import back from '../images/profile2.png'
+import back from '../../images/icon.png'
 export default function Profile() {
   const {user}=UserAuth()
   const [photo, setPhoto] = useState(null);
