@@ -3,7 +3,7 @@ import { auth } from '../../firebase-config';
 import { Form, Button, Alert, Card } from 'react-bootstrap'
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { Link } from 'react-router-dom';
-import back from '../../images/forgotlottie.gif'
+import back from '../../images/distibution.jpg'
 export function ResetPassword () {
     const [email, setEmail] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -22,22 +22,17 @@ export function ResetPassword () {
 
     return (
         <>
-           <div style={{backgroundColor:''}}>
-     <div   style={{backgroundImage:`url(${back})`,height:'100vh',
-width: '40%',
-backgroundSize:'contain',
-backgroundRepeat:'no-repeat',
-backgroundPosition:'center',
-marginRight:"2000px",
-marginTop:'100px'
-
+             <div id="container"  style={{backgroundImage:`url(${back})`,height:'100vh',
+    width: '100vw',
+    backgroundSize:'cover',
+    backgroundRepeat:'no-repeat',
+    backgroundPosition:'center'
 }}>
-       <div  style={{width:'100%',height:'50vh',backgroundColor:'white',mariginBottom:'10px',marginTop:'150px',marginLeft:'750px', border: '1px solid',
-padding: '10px',
-
-/* box-shadow: h-offset v-offset blur */
-
-boxShadow: '5px 10px 10px',borderRadius:'10px'}}>
+                <div className="p-4 box" style={{width:'40%',height:'35%',marginTop:'200px',marginLeft:'10px', border: '1px solid',
+        padding: '10px',
+         
+        /* box-shadow: h-offset v-offset blur */
+        boxShadow: '5px 10px 10px',borderRadius:'10px'}}>
                     <h2 className="text-center mb-4">Reset Password</h2>
                     {successMessage && <Alert variant="success">{successMessage}</Alert>}
                     {errorMessage && <Alert variant="success">{errorMessage}</Alert>}
@@ -65,7 +60,6 @@ boxShadow: '5px 10px 10px',borderRadius:'10px'}}>
                     <div className='w-100 text-center mt-2'>
                         <Link to="/">Sign Up</Link> or
                         <Link to='/'> Log In</Link>
-                    </div>
                     </div>
 
                 </div>

@@ -5,6 +5,7 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css"
 import { SubmitButton } from "../accountBox/common";
 // import { useUserAuth } from "../context/UserAuthContext";
 import { UserAuth } from "../../context/AuthContext";

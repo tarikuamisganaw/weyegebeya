@@ -91,7 +91,7 @@ if(user!=null){
       <MutedLink href="/forgot" style={{color:'black'}}>Forget your password?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
       <button type="submit" style={{ backgroundColor:' #4c8bf5',
-  color:'white',
+  color:'black',
   fontSize:'17px',
   height:'55px',
   width:'250px',
@@ -101,7 +101,7 @@ if(user!=null){
   borderColor:'transparent'}} onClick={handleSubmit} >{!loading ? "Signin" : "loading"}</button>
              
      <GoogleButton  onClick={handleGoogleSignIn} style={{ backgroundColor:' #4c8bf5',
-  color:'white',
+  color:'black',
   fontSize:'17px',
   padding: '0px 0px',
   borderRadius: '5px',
@@ -109,7 +109,7 @@ if(user!=null){
   margin: '10px 0px',}}/>
           <Link to='/phoneSignup'>
       <button type="submit" style={{ backgroundColor:' #4c8bf5',
-  color:'white',
+  color:'black',
   fontSize:'17px',
   height:'55px',
   width:'250px',
@@ -119,9 +119,9 @@ if(user!=null){
   borderColor:'transparent'}}>signin with phone number</button>
       </Link>
       <Marginer direction="vertical" margin="1em" />
-      <MutedLink href="#">
-        Don't have an accoun?{" "}
-        <BoldLink href="#" onClick={switchToSignup}>
+      <MutedLink href="#" style={{color:'black'}}>
+        Don't have an account?{" "}
+        <BoldLink href="#"style={{color:'black'}} onClick={switchToSignup}>
           Signup
         </BoldLink>
       </MutedLink>

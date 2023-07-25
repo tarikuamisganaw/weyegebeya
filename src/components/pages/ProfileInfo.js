@@ -55,8 +55,10 @@ height:'80px',
 borderRadius:'50%',
 borderWidth:'5px',
 borderColor:'gray',
-borderStyle:'outset'}}/>:"no image available" } 
-<p>Welcome,{userName}</p>
+borderStyle:'outset'}}/>:"no image choosen" } 
+<p>{userName}</p>
+<p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p>
+
     </div>
   )
 }

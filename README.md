@@ -69,36 +69,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-backgroundImage:`url(${back})`,height:'100vh',
-    width: '100vw',
+b
+
+ <AppContainer style={{backgroundImage:`url(${back})`, width: '100vw',
+    height: '100vh',
     backgroundSize:'cover',
     backgroundRepeat:'no-repeat',
-    backgroundPosition:'center'
-    rgb(241, 196, 15)
+    backgroundPosition:'center'}}>
+      <AccountBox />
+      
 
-height:'100vh',    display:'flex',
-    
-   align-items:'center',
-   justify-content:'center',
-   flexDirection: 'column',
-
-      background-color: black,
-  color: white,
-  font-size: 20px,
-  padding: 10px 60px,
-  border-radius: 5px,
-  margin: 10px 0px,
-  cursor: pointer,
-
-  color:'black',
-  fontSize:'20px',
-  padding: '10px 60px',
-  borderRadius: '5px',
-  margin: '10px 0px',
-
-  flag --allow-unrelated-histories
-  const styles={
-  .date-picker {
-    width: 50px !important;
-  }
-}
+      
+    </AppContainer>

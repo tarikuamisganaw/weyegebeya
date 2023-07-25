@@ -38,7 +38,7 @@ function App() {
     <Route exact path="/"  element={<Login/>}/>
     <Route exact path="/profile"  element={<Protected><ProfileAdmin/></Protected>}/>
     <Route exact path="/phoneSignUp" element={<PhoneSignUp/>}/>
-
+  
 
 <Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
 <Route exact path="/forgot" element={<ResetPassword/>}/>

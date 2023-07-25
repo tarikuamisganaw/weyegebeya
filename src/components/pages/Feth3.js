@@ -1,7 +1,7 @@
 import "../../App.css";
 import styled from "styled-components";
 import { AccountBox } from "../accountBox";
-import back from '../../images/loginer.gif'
+import back from '../../images/distibution.jpg'
 import { BrowserRouter,Route,Routes } from "react-router-dom";
 
 const AppContainer = styled.div`
@@ -18,24 +18,17 @@ const AppContainer = styled.div`
 
 function Login() {
   return (
-    <div style={{backgroundColor:''}}>
-     <div   style={{backgroundImage:`url(${back})`,height:'100%',
-width: '40%',
-backgroundSize:'contain',
-backgroundRepeat:'no-repeat',
-backgroundPosition:'center',
-marginRight:"2000px",
-backgroundColor:''
-
-}}>
-    <AppContainer style={{marginLeft:'750px',marginTop:'10px'}}>
+    
+    <AppContainer style={{backgroundImage:`url(${back})`, width: '100vw',
+    height: '100vh',
+    backgroundSize:'cover',
+    backgroundRepeat:'no-repeat',
+    backgroundPosition:'center'}}>
       <AccountBox />
       
 
       
     </AppContainer>
-    </div>
-    </div>
    
   );
 }

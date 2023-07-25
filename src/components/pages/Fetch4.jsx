@@ -7,7 +7,7 @@ import {  Input, DatePicker, } from 'antd';
 // import ImageUploader from "react-images-upload";
 import { Form,Alert, Button  } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import back from '../../images/anime.gif'
+import back from '../../images/admin.jpg'
 import icon from '../../images/icon.png'
 import PhoneInput from "react-phone-number-input";
 import dayjs from 'dayjs';
@@ -116,17 +116,15 @@ useEffect(() => {
 
   return (
     <>
-    <div style={{backgroundColor:'white'}}>
-     <div id="container"  style={{backgroundImage:`url(${back})`,height:'100%',
+    <div id="container"  style={{backgroundImage:`url(${back})`,height:'100vh',
 width: '40%',
-backgroundSize:'contain',
+backgroundSize:'coontain',
 backgroundRepeat:'no-repeat',
 backgroundPosition:'center',
-marginRight:"2000px",
-backgroundColor:'white'
+marginRight:"100px"
 
 }}>
-       <div className="p-4 box" style={{width:'100%',height:'100vh',backgroundColor:'white',mariginBottom:'10px',marginTop:'10px',marginLeft:'750px', border: '1px solid',
+       <div className="p-4 box" style={{width:'40%',height:'100vh',marginTop:'10px',marginLeft:'10px',marginRight:"500px", border: '1px solid',
 padding: '10px',
 
 /* box-shadow: h-offset v-offset blur */
@@ -142,7 +140,7 @@ height:'80px',
 borderRadius:'50%',
 borderWidth:'5px',
 borderColor:'gray',
-borderStyle:'outset'}}/>:"no image choosen" } 
+borderStyle:'outset'}}/>:"no vatart url" } 
 <div>
            <Form onSubmit={handleSubmit}>
                <div>
@@ -262,7 +260,6 @@ width:'150px'
 
        </div>
        
-   </div>
    </div>
   
 </>

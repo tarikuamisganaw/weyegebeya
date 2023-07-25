@@ -56,7 +56,7 @@ export function SignupForm(props) {
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <button type="submit" onClick={regsiter} style={{backgroundColor:' #4c8bf5',
-  color:'white',
+  color:'black',
   fontSize:'17px',
   height:'55px',
   width:'250px',
@@ -66,7 +66,7 @@ export function SignupForm(props) {
   borderColor:'transparent'}}>Signup</button>
       <Link to='/phoneSignup'>
       <button type="submit" style={{ backgroundColor:' #4c8bf5',
-  color:'white',
+  color:'black',
   fontSize:'17px',
   height:'55px',
   width:'250px',
@@ -76,9 +76,9 @@ export function SignupForm(props) {
   borderColor:'transparent' }}>signup with phone number</button>
       </Link>
       <Marginer direction="vertical" margin="1em" />
-      <MutedLink href="#">
+      <MutedLink href="#"style={{color:'black'}}>
         Already have an account?
-        <BoldLink href="#" onClick={switchToSignin}>
+        <BoldLink href="#" style={{color:'black'}} onClick={switchToSignin}>
           Signin
         </BoldLink>
       </MutedLink>

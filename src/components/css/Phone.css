@@ -64,3 +64,9 @@ a {
     
    
   }
+  .phoneinput{
+    width:60% !important;
+    height:10% !important;
+     fontSize:10px !important;
+    margin:10px !important;
+  }

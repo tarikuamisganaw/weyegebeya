@@ -92,11 +92,11 @@ const handleProfile=()=>{
   color:'black',
   fontSize:'17px',
   height:'40px',
-  width:'150px',
+  width:'200px',
   padding: '10px 10px',
   borderRadius: '5px',
   margin: '10px 0px',
-  borderColor:'transparent'}}>update profile </button>
+  borderColor:'transparent'}}>update/insert profile </button>
         </div>
         <button onClick={handleSignOut} style={{backgroundColor:' #24a0e',
   color:'black',
