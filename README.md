@@ -69,15 +69,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-b
 
- <AppContainer style={{backgroundImage:`url(${back})`, width: '100vw',
-    height: '100vh',
-    backgroundSize:'cover',
-    backgroundRepeat:'no-repeat',
-    backgroundPosition:'center'}}>
-      <AccountBox />
-      
 
-      
-    </AppContainer>
+ 

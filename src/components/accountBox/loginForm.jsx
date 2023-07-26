@@ -90,28 +90,29 @@ if(user!=null){
       <Marginer direction="vertical" margin={10} />
       <MutedLink href="/forgot" style={{color:'black'}}>Forget your password?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
-      <button type="submit" style={{ backgroundColor:' #4c8bf5',
-  color:'black',
+      <button type="submit" style={{ backgroundColor:'#783584',
+  color:'white',
   fontSize:'17px',
-  height:'55px',
+  height:'40px',
   width:'250px',
   padding: '10px 10px',
   borderRadius: '5px',
   margin: '10px 0px',
   borderColor:'transparent'}} onClick={handleSubmit} >{!loading ? "Signin" : "loading"}</button>
              
-     <GoogleButton  onClick={handleGoogleSignIn} style={{ backgroundColor:' #4c8bf5',
-  color:'black',
+     <GoogleButton  onClick={handleGoogleSignIn} style={{ backgroundColor:' #783584',
+  color:'white',
   fontSize:'17px',
   padding: '0px 0px',
   borderRadius: '5px',
   width:'250px',
+  height:'40px',
   margin: '10px 0px',}}/>
           <Link to='/phoneSignup'>
-      <button type="submit" style={{ backgroundColor:' #4c8bf5',
-  color:'black',
+      <button type="submit" style={{ backgroundColor:'#783584',
+  color:'white',
   fontSize:'17px',
-  height:'55px',
+  height:'40px',
   width:'250px',
   padding: '10px 10px',
   borderRadius: '5px',
@@ -121,7 +122,7 @@ if(user!=null){
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#" style={{color:'black'}}>
         Don't have an account?{" "}
-        <BoldLink href="#"style={{color:'black'}} onClick={switchToSignup}>
+        <BoldLink href="#"style={{color:'#783584'}} onClick={switchToSignup}>
           Signup
         </BoldLink>
       </MutedLink>

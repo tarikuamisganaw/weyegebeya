@@ -32,7 +32,7 @@ marginRight:"2000px",
 marginTop:'100px'
 
 }}>
-       <div  style={{width:'100%',height:'50vh',backgroundColor:'white',mariginBottom:'10px',marginTop:'150px',marginLeft:'750px', border: '1px solid',
+       <div  style={{width:'80%',height:'50vh',backgroundColor:'white',mariginBottom:'10px',marginTop:'150px',marginLeft:'750px', border: '1px solid',
 padding: '10px',
 
 /* box-shadow: h-offset v-offset blur */
@@ -50,19 +50,22 @@ boxShadow: '5px 10px 10px',borderRadius:'10px'}}>
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                style={{width:'40%',height:'33px',fontSize:'17px',marginTop:'10px',}}
+                                style={{width:'50%',height:'33px',fontSize:'17px',marginTop:'10px',}}
                             />
                         </div>
-                        <Button className='w-100 mb-4'style={{ backgroundColor:'#4c8bf5',
-  color:'black',
+                        <Button className='w-100 mb-4'style={{ backgroundColor:'#783584',
+  color:'white',
   fontSize:'15px',
   padding: '10px 2px',
-  borderRadius: '5px',
-  margin: '10px 0px',
-  width:'150px'
+  borderRadius: '8px',
+borderColor:'transparent',
+  marginLeft: '50px',
+  marginTop:'20px',
+  width:'200px'
  }} type="submit">Reset Password</Button>
                     </Form>
-                    <div className='w-100 text-center mt-2'>
+                    <div className='w-100 text-center mt-2' style={{ marginLeft: '50px',
+  marginTop:'20px',}}>
                         <Link to="/">Sign Up</Link> or
                         <Link to='/'> Log In</Link>
                     </div>

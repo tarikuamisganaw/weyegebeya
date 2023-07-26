@@ -18,7 +18,8 @@ const AppContainer = styled.div`
 
 function Login() {
   return (
-    <div style={{backgroundColor:''}}>
+    <div  style={{backgroundColor:'white',width:'100vw',display:"flex",
+    alignItems: "center",}}>
      <div   style={{backgroundImage:`url(${back})`,height:'100%',
 width: '40%',
 backgroundSize:'contain',
@@ -28,6 +29,7 @@ marginRight:"2000px",
 backgroundColor:''
 
 }}>
+ 
     <AppContainer style={{marginLeft:'750px',marginTop:'10px'}}>
       <AccountBox />
       

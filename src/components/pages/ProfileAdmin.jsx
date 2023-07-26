@@ -9,14 +9,17 @@ import { Form,Alert, Button  } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import back from '../../images/anime.gif'
 import icon from '../../images/icon.png'
-import PhoneInput from "react-phone-number-input";
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 import dayjs from 'dayjs';
 // import "bootstrap/dist/css/bootstrap.min.css";
 import {supabase} from '../../config/supabaseClient'
 import { UserAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { FiUser, FiBarChart2, FiSettings } from "react-icons/fi";
 const ProfileAdmin = () => {
 
-
+const navigate=useNavigate()
     const [startDate, setStartDate] = useState(null);
      const [pictures, setPictures] = useState('');
      const [successMessage, setSuccessMessage] = useState('');
@@ -29,8 +32,14 @@ const ProfileAdmin = () => {
     const [location, setLocation] = useState('');
     const [flag, setFlag] = useState(false);
    
-    const {user}=UserAuth()
-  
+    const {user,logout}=UserAuth()
+    const handleSignOut=async()=>{
+      try{
+      await logout()
+      }catch(error){
+          console.log(error)
+      }
+    }
      const handleSubmit = async (e) => {
         e.preventDefault();
         // Here you can handle the form submission and store the data
@@ -116,23 +125,53 @@ useEffect(() => {
 
   return (
     <>
-    <div style={{backgroundColor:'white'}}>
-     <div id="container"  style={{backgroundImage:`url(${back})`,height:'100%',
-width: '40%',
+    <div style={{backgroundColor:'white',width:'100vw',display:"flex",
+    alignItems: "center",}}>
+     {/* <div id="container"  style={{backgroundImage:`url(${back})`,height:'100%',
+width: '20%',
 backgroundSize:'contain',
 backgroundRepeat:'no-repeat',
 backgroundPosition:'center',
-marginRight:"2000px",
+marginRight:"0px",
 backgroundColor:'white'
 
-}}>
-       <div className="p-4 box" style={{width:'100%',height:'100vh',backgroundColor:'white',mariginBottom:'10px',marginTop:'10px',marginLeft:'750px', border: '1px solid',
+}}> */}
+
+      <div style={styles.sidebar}>
+        {/* <div style={styles.logo}>Admin Dashboard
+        
+      </div> */}
+      {/* <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p> */}
+      <p>Hello,{user?.displayName || user?.email || user?.phoneNumber }</p>
+     
+        <div style={styles.menu}>
+          <div style={styles.menuItem}>
+            <FiUser style={styles.menuIcon} /> Users
+          </div>
+          <div style={styles.menuItem}>
+            <FiBarChart2 style={styles.menuIcon} /> Statistics
+          </div>
+          <div style={styles.menuItem}>
+            <FiSettings style={styles.menuIcon} /> Settings
+          </div>
+          <button onClick={handleSignOut} style={{backgroundColor:' #24a0e',
+  color:'black',
+  fontSize:'17px',
+  height:'40px',
+  width:'150px',
+  padding: '10px 10px',
+  borderRadius: '5px',
+  margin: '10px 0px',
+  borderColor:'transparent'}}>logout</button>
+          </div>
+          </div>
+       <div className="p-4 box" style={{width:'50%',height:'80%',backgroundColor:'white',mariginBottom:'10px',marginTop:'70px',marginLeft:'100px', border: '1px solid',
 padding: '10px',
 
 /* box-shadow: h-offset v-offset blur */
 
-boxShadow: '5px 10px 10px',borderRadius:'10px'}}>
-           <h2 className="text-center mb-4">Profile page</h2>
+boxShadow: '5px 10px 10px',borderRadius:'7px',marginLeft:'200px'}}>
+          
           
            {successMessage && <Alert variant="success">{successMessage}</Alert>}
   
@@ -160,41 +199,55 @@ style={{ backgroundColor:'transparent',
      
   </div>
   </div>
-  <div>
+  <div style={{ display:"flex",
+    alignItems: "center",
+    marginTop:"10px"}}>
+      <div>
+
                    <label className="text-center mb-3" htmlFor="email" style={{marginRight:"10px",}}>username:</label>
+                   
+                   <div>
                    <Input
                        className=''
                        type="text"
                        
                        value={userName}
                        onChange={(e) => setuserName(e.target.value)}
-                       style={{width:'270px',height:'33px',fontSize:'17px',marginTop:'10px',borderColor:'black'}}
+                       style={{width:'295px',height:'33px',fontSize:'17px',}}
                    />
                    </div>
-                   <div>
-                    <label className="text-center mb-3" htmlFor="email" style={{marginRight:"10px",}}>fullname:</label>
+                   </div>
+                  <div style={{ width: "100px",
+    marginRight: "25px",marginLeft:"10px"}}>
+                    <label className="text-center mb-3" htmlFor="email" style={{marginRight:"10px",marginLeft:'20px'}}>fullname:</label>
+                    <div>
                    <Input
                        className=''
                        type="text"
                       
                        value={fullName}
                        onChange={(e) => setfullName(e.target.value)}
-                       style={{width:'280px',height:'33px',fontSize:'17px',marginTop:'10px',borderColor:'black'}}
+                       style={{width:'300px',height:'33px',fontSize:'17px',marginLeft:'20px'}}
                    />
                    </div>
-                   <div style={styles.phonediv}>
-  <label htmlFor="email" style={styles.phonecontainer}>phonenumber:</label>
+                   </div>
+                   </div>
+                   <div style={{ display: "flex", alignItems: "center", marginTop: "30px" }}>
+    <div>
+  <label htmlFor="email">phonenumber:</label>
+                  <div style={{width:'80%', height:'30px'}}>   
+                                                                                                                                         <div>
                    <PhoneInput
               defaultCountry="ET"
               value={phoneNumber}
               onChange={setphoneNumber}
               placeholder="Enter Phone Number"
-              style={styles.phoneinput}
-              
-              
-             
-
+              //style={styles.phoneinput}
             />
+            </div> 
+            </div>
+
+            </div>
             {/* <Input
                        className=''
                        type="text"
@@ -203,35 +256,49 @@ style={{ backgroundColor:'transparent',
                        style={{width:'300px',height:'33px',fontSize:'17px',marginTop:'10px',borderColor:'black'}}
                    /> */}
                   
-                   </div>
+                   
+                   <div  style={{ width: "100px",
+    marginRight: "25px",}}>
+                   <label className="text-center mb-3" htmlFor="email"style={{ marginLeft:'20px'}}>adress:</label>
                    <div>
-                   <label className="text-center mb-3" htmlFor="email"style={{marginRight:"10px",}}>adress:</label>
                    <Input
                        className=''
                        type="text"
                        value={location}
                        onChange={(e) => setLocation(e.target.value)}
-                       style={{width:'300px',height:'33px',fontSize:'17px',marginTop:'10px',borderColor:'black'}}
+                       style={{width:'290px',height:'33px',fontSize:'17px',marginLeft:'20px'}}
                    />
                    </div>
-                   <div>
+                   </div>
+                   </div>
+                   <div style={{ display:"flex",
+    alignItems: "center",
+    marginTop:"30px"}}>
+      <div>
                    <label className="text-center mb-3" htmlFor="email"style={{marginRight:"10px",}}>email:</label>
+                   <div>
                    <Input
                        className=''
                        type="text"
                        id="email"
                        value={email}
                        onChange={(e) => setEmail(e.target.value)}
-                       style={{width:'307px',height:'33px',fontSize:'17px',marginTop:'10px',borderColor:'black'}}
+                       style={{width:'307px',height:'33px',fontSize:'17px',}}
                    />
                    </div>
+                   </div>
+                   
                
           
-               </div>
-               <div style={styles.datepickercontainer}>
-  <label htmlFor="email" style={styles.datepickerlabel}>
+               
+               <div style={{ width: "800px",
+    marginRight: "25px",}}>
+      <div>
+  <label htmlFor="email"style={{ marginLeft:'20px'}} >
     Date of Birth:
   </label>
+  </div>
+  <div>
   <DatePicker
   style={styles.datepickerInput}
   value={startDate ? dayjs(startDate, 'DD/MM/YYYY')  : null}
@@ -242,27 +309,47 @@ style={{ backgroundColor:'transparent',
   allowClear
 />
 </div>
-          <div style={{ marginTop:'10px' }}>
-               <Button className='w-100 mb-4'style={{ backgroundColor:' #4c8bf5',
-color:'black',
+</div>
+</div>
+</div>
+<div style={{ display:"flex",
+    alignItems: "center",
+    marginTop:"30px"}}>
+               <Button className='w-100 mb-4'style={{ backgroundColor:' #783584',
+color:'white',
 fontSize:'15px',
 padding: '10px 2px',
 borderRadius: '8px',
 borderColor:'transparent',
 marginTop:'10px',
-width:'150px'
+width:'150px',
+height:'40px'
+
 }} type="submit">submit</Button>
+
+<div style={{ 
+    marginRight: "25px",}}>
+               <Button className='w-100 mb-4' onClick={()=>{
+  navigate('/account')
+}} style={{ backgroundColor:' #783584',
+color:'white',
+fontSize:'15px',
+padding: '10px 2px',
+borderRadius: '8px',
+borderColor:'transparent',
+marginTop:'10px',
+width:'150px',
+height:'40px'
+}} >cancel</Button>
+</div>
 </div>
            </Form>
            </div>
-           <div className='w-100 text-center mt-10'>
-               <Link to="/account">back to dashboard</Link> 
-              
-           </div>
+          
 
        </div>
        
-   </div>
+   {/* </div> */}
    </div>
   
 </>
@@ -282,9 +369,10 @@ datepickercontainer: {
   },
   
   datepickerInput: {
-    width: "200px !important",
+    width: "400px !important",
     mariginTop:"10px !important",
-    borderColor:'black'
+    marginLeft:'20px'
+    
   },
   phonediv:{
     display:"flex",
@@ -298,12 +386,65 @@ datepickercontainer: {
     
   },
   phoneinput:{
-    width:'70% ',
-    
-     fontSize:'17px',
+    width:'80% ',
+    fontSize:'12px',
     margin:'10px !important',
     borderRadius:'8px',
 
+  },
+  container: {
+    display: "flex",
+    height: "100vh",
+  },
+  sidebar: {
+    width: "250px",
+    background: "#333",
+    color: "#fff",
+    padding: "20px",
+    height:'100vh'
+  },
+  logo: {
+    fontSize: "24px",
+    fontWeight: "bold",
+    paddingBottom: "20px",
+  },
+  menu: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  menuItem: {
+    display: "flex",
+    alignItems: "center",
+    padding: "10px",
+    cursor: "pointer",
+    transition: "background 0.3s",
+    borderRadius: "5px",
+    marginBottom: "10px",
+  },
+  menuIcon: {
+    marginRight: "10px",
+  },
+  content: {
+    flex: 1,
+    padding: "20px",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginTop: "20px",
+  },
+  statistics: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "20px",
+    marginTop: "20px",
+  },
+  statItem: {
+    background: "#e3e3e3",
+    padding: "20px",
+    borderRadius: "5px",
+    textAlign: "center",
+    color: "#333",
   },
  
 };
