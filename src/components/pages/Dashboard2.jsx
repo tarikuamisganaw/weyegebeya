@@ -5,7 +5,7 @@ import { Column } from "@ant-design/plots";
 import { Table } from "antd";
 import { Link } from 'react-router-dom'
 import { UserAuth } from "../../context/AuthContext";
-import Profile from "./FirebaseP";
+// import Profile from "./FirebaseP";
 import ProfileAdmin from "./ProfileAdmin";
 import { useNavigate } from "react-router-dom";
 import ProfileInfo from "./ProfileInfo";

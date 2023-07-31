@@ -322,7 +322,7 @@ fontSize:'15px',
 padding: '10px 2px',
 borderRadius: '8px',
 borderColor:'transparent',
-marginTop:'10px',
+margin:'10px',
 width:'150px',
 height:'40px'
 
@@ -338,7 +338,7 @@ fontSize:'15px',
 padding: '10px 2px',
 borderRadius: '8px',
 borderColor:'transparent',
-marginTop:'10px',
+margin:'10px',
 width:'150px',
 height:'40px'
 }} >cancel</Button>
