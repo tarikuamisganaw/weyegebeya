@@ -29,9 +29,10 @@ const navigate=useNavigate()
     const [phoneNumber, setphoneNumber] = useState('');
     const [image,setImage]=useState('')
     const [avatarUrl,setavatarUrl]=useState('')
+   // const [newavatarUrl,setnewavatarUrl]=useState('')
     const [location, setLocation] = useState('');
     const [flag, setFlag] = useState(false);
-   
+  
     const {user,logout}=UserAuth()
     const handleSignOut=async()=>{
       try{
@@ -40,50 +41,50 @@ const navigate=useNavigate()
           console.log(error)
       }
     }
-     const handleSubmit = async (e) => {
-        e.preventDefault();
-        // Here you can handle the form submission and store the data
-        
-        if(image){
-          
-          
-            const {data,erorr}=await supabase.storage.from("avatars").upload(`${Date.now()} ${image.name}`, image)
-
-            if(erorr){
-                console.log("storage erorr");
-                console.log(erorr);
-            }
-            if (data) {
-              
-                const avatarUrl = data.path;
-                setSuccessMessage('success fully updated');
-              
-                setavatarUrl(data.path)
-              
-                console.log(user);
-                const { data: profileData, error: profileError } = await supabase.from("profiles").upsert({
-                  id: user.uid,
-                  username: userName,
-                  full_name: fullName,
-                  avatar_url: avatarUrl,
-                  email: email,
-                  dateofbirth: startDate ? dayjs(startDate, 'DD/MM/YYYY') : null,
-                  phonenumber: phoneNumber,
-                  location: location,
-                });
-          
-                if (profileError) {
-                  console.log("Profile error");
-                  console.log(profileError);
-                }
-          
-                if (profileData) {
-                  console.log("Successfully submitted");
-                  setSuccessMessage('success fully updated');
-                }
-              }
-}
-}
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+     let newavatarUrl = avatarUrl 
+      if (image) {
+        const { data, error } = await supabase.storage
+          .from('avatars')
+          .upload(`${Date.now()} ${image.name}`, image);
+    
+        if (error) {
+          console.log('Storage error');
+          console.log(error);
+        }
+    
+        if (data) {
+          newavatarUrl = data.path;
+          setavatarUrl(newavatarUrl);
+         
+          console.log('Successfully uploaded image');
+        }
+      }
+    
+      const { data: profileData, error: profileError } = await supabase.from('profiles').upsert({
+        id: user.uid,
+        username: userName,
+        full_name: fullName,
+        avatar_url: newavatarUrl,
+        email: email,
+        dateofbirth: startDate ? dayjs(startDate, 'DD/MM/YYYY') : null,
+        phonenumber: phoneNumber,
+        location: location,
+      });
+    
+      if (profileError) {
+        console.log('Profile error');
+        console.log(profileError);
+      }
+    
+      if (profileData) {
+        console.log('Successfully submitted');
+        setSuccessMessage('Successfully updated');
+      }
+      setSuccessMessage('Successfully updated')
+    }
+    
 useEffect(() => {
   const fetchProfile = async () => {
     try {
