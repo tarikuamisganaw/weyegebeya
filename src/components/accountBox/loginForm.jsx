@@ -98,7 +98,7 @@ if(user!=null){
   padding: '10px 10px',
   borderRadius: '5px',
   margin: '10px 0px',
-  borderColor:'transparent'}} onClick={handleSubmit} >{!loading ? "Signin" : "loading"}</button>
+  borderColor:'transparent',cursor: "pointer"}} onClick={handleSubmit} >{!loading ? "Signin" : "loading"}</button>
              
      <GoogleButton  onClick={handleGoogleSignIn} style={{ backgroundColor:' #783584',
   color:'white',
@@ -117,7 +117,8 @@ if(user!=null){
   padding: '10px 10px',
   borderRadius: '5px',
   margin: '10px 0px',
-  borderColor:'transparent'}}>signin with phone number</button>
+  borderColor:'transparent',
+  cursor: "pointer"}}>signin with phone number</button>
       </Link>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#" style={{color:'black'}}>

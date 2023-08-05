@@ -32,6 +32,7 @@ const navigate=useNavigate()
    // const [newavatarUrl,setnewavatarUrl]=useState('')
     const [location, setLocation] = useState('');
     const [flag, setFlag] = useState(false);
+    
   
     const {user,logout}=UserAuth()
     const handleSignOut=async()=>{
@@ -301,7 +302,7 @@ style={{ backgroundColor:'transparent',
   </div>
   <div>
   <DatePicker
-  style={styles.datepickerInput}
+ 
   value={startDate ? dayjs(startDate, 'DD/MM/YYYY')  : null}
   onChange={(date) => setStartDate(date ? date.format('DD/MM/YYYY') : null)}
   format='DD/MM/YYYY'

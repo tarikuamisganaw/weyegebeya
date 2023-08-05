@@ -17,11 +17,18 @@ import ProfileInfo from "./ProfileInfo";
 import { Form,Alert, Button  } from 'react-bootstrap'
 import uuid from 'react-uuid'
 import {supabase} from '../../config/supabaseClient'
+import { AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineEye } from 'react-icons/ai';
+
+import dayjs from 'dayjs';
 const Dashboard = () => {
   const [name,setName]=useState('')
   const [price,setPrice]=useState('')
   const [description,setDesription]=useState('')
   const [image,setImage]=useState('')
+  const [amount,setAmount]=useState('')
+  const [select, setSelect] = useState('');
+  
   const users = [
     { id: 1, name: "John Doe", email: "john@example.com" },
     { id: 2, name: "Jane Smith", email: "jane@example.com" },
@@ -71,7 +78,7 @@ await logout()
     const [modal, setModal] = useState(false);
     const [avatarUrl,setavatarUrl]=useState('')
     const [successMessage, setSuccessMessage] = useState('');
-const [select,setSelect]=useState('')
+    const [startDate, setStartDate] = useState(null);
     const toggleModal = () => {
       setModal(!modal);
     };
@@ -81,6 +88,10 @@ const [select,setSelect]=useState('')
    
 const handleProfile=()=>{
   navigate('/profile')
+}
+const hadleproduct=()=>{
+  navigate('/shop')
+
 }
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -111,6 +122,8 @@ const handleSubmit = async (e) => {
     product_image: newavatarUrl,
     product_price:price,
 product_desc:description,
+product_amount:amount,
+end_date_of_bidding: startDate.toISOString(),
     bid_info:select,
   });
 
@@ -129,6 +142,7 @@ product_desc:description,
   setPrice("")
   setDesription("")
   setSelect("")
+  setAmount("")
   document.getElementById('imageInput').value = "";
 
 }
@@ -175,6 +189,17 @@ product_desc:description,
   borderColor:'transparent',
   cursor: "pointer"}}><AiOutlinePlusCircle style={{marginRight: '10px'}} />
   Insert Product </button>
+  <button onClick={hadleproduct} style={{backgroundColor:' #333',
+  color:'white',
+  fontSize:'17px',
+  height:'40px',
+  width:'160px',
+  padding: '10px 10px',
+  borderRadius: '5px',
+  margin: '5px',
+  borderColor:'transparent',
+  cursor: "pointer"}}><AiOutlineEye style={{marginRight: '10px'}} />
+  view Product </button>
         </div>
         
         <button onClick={handleSignOut} style={{backgroundColor:' #333',
@@ -254,6 +279,14 @@ style={{ backgroundColor:'transparent',
                        onChange={(e) => setDesription(e.target.value)}
                        style={{width:'300px',height:'33px',fontSize:'17px',margin:'10px'}}
                    />
+                   <Input
+                       className=''
+                       type="text"
+                       placeholder="Enter amount"
+                       value={amount}
+                       onChange={(e) => setAmount(e.target.value)}
+                       style={{width:'300px',height:'33px',fontSize:'17px',margin:'10px'}}
+                   />
                     <select  value={select} 
                     onChange={(e) => setSelect(e.target.value)}
                     style={{width:'300px',height:'33px',fontSize:'17px',margin:'10px'}} name="bidding information">
@@ -262,30 +295,34 @@ style={{ backgroundColor:'transparent',
         <option value="no bid">no bid</option>
         
       </select>
+      {select === 'bid'?(
+        <div>
+            <DatePicker
+  value={startDate}
+  onChange={(date) => setStartDate(date)}
+  showTime={{ format: 'HH:mm:ss' }}
+  format="MM/DD/YYYY HH:mm:ss"
+  placeholder="select end date for auction"
+/>
+</div>
+            
+          ):""}
                    </div>
                    <Button className='w-100 mb-4'style={{ backgroundColor:' #783584',
 color:'white',
 fontSize:'15px',
-padding: '10px 2px',
-borderRadius: '8px',
+padding: '5px 2px',
+borderRadius: '15px',
 borderColor:'transparent',
 margin:'10px',
 width:'150px',
-height:'40px'
+height:'30px',
+marginLeft:'80px',
+cursor: "pointer"
 
-}} type="submit">submit</Button>
-            <Button style={{ backgroundColor:' #783584',
-color:'white',
-fontSize:'15px',
-padding: '10px 2px',
-borderRadius: '8px',
-borderColor:'transparent',
-margin:'10px',
-width:'150px',
-height:'40px'
-
-}}  onClick={toggleModal}>
-              Close
+}} type="submit">create product</Button>
+            <Button className='close-modal'  onClick={toggleModal}>
+            <AiOutlineClose />
             </Button>
             </Form>
           </div>
