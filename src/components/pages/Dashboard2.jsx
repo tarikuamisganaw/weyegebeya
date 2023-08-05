@@ -123,7 +123,7 @@ const handleSubmit = async (e) => {
     product_price:price,
 product_desc:description,
 product_amount:amount,
-end_date_of_bidding: startDate.toISOString(),
+end_date_of_bidding: startDate ? startDate.toISOString() : null,
     bid_info:select,
   });
 
@@ -136,13 +136,14 @@ end_date_of_bidding: startDate.toISOString(),
     console.log('Successfully submitted');
     setSuccessMessage('Successfully updated');
   }
-  setSuccessMessage('Successfully registerd')
+  setSuccessMessage('Successfully updated');
   setImage("")
   setName("")
   setPrice("")
   setDesription("")
   setSelect("")
   setAmount("")
+  setStartDate("")
   document.getElementById('imageInput').value = "";
 
 }

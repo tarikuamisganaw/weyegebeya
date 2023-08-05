@@ -10,14 +10,24 @@ import { FaTruck } from 'react-icons/fa';
 import {supabase} from '../../config/supabaseClient'
 import RatingStars from 'react-rating-stars-component';
 import { FaShoppingCart, FaSearch, FaUser } from 'react-icons/fa';
+import {FiLogOut, } from 'react-icons/fi';
 import SetTimer from './SetTimer';
 import CountdownTimer from './SetTimer';
+import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom"
 const Deatail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [rating, setRating] = useState(1);
   const navigate=useNavigate()
+  const {user,logout}=UserAuth()
+    const handleSignOut=async()=>{
+try{
+await logout()
+}catch(error){
+    console.log(error)
+}
+    }
   useEffect(() => {
     const getProduct = async () => {
       // Fetch the data from the product_table
@@ -55,7 +65,7 @@ const Deatail = () => {
   borderRadius: '5px',
   marginLeft:'20%',
   borderColor:'transparent',
-  cursor: "pointer"}}>  <FaShoppingCart />product List</button>
+  cursor: "pointer"}}>  <FaShoppingCart  style={{marginRight: '5px'}} />product List</button>
   <button onClick={()=>{
   navigate('/account')
 }}  style={{backgroundColor:' #333',
@@ -68,10 +78,8 @@ const Deatail = () => {
   marginLeft:'100px',
   borderColor:'transparent',
   cursor: "pointer"}}>
-<FaUser />dashboard</button>
-<button onClick={()=>{
-  navigate('/')
-}}  style={{backgroundColor:' #333',
+<FaUser  style={{marginRight: '5px'}} />dashboard</button>
+<button onClick={handleSignOut}  style={{backgroundColor:' #333',
   color:'white',
   fontSize:'17px',
   height:'30px',
@@ -81,7 +89,7 @@ const Deatail = () => {
   marginLeft:'150px',
   borderColor:'transparent',
   cursor: "pointer"}}>
-logout</button>
+<FiLogOut style={{marginRight: '5px'}} />logout</button>
          </div>
 <div className="app">
         <div className="header">
@@ -112,12 +120,19 @@ logout</button>
             <p style={{ color: 'black' }}>Only {product.product_amount} items left</p>
             </div>
             {product.bid_info === 'bid' ?(
-<CountdownTimer productId={product.id}/>):""}
-            <Button className='w-100 mb-4'
+              <div>
+              <p>time left for auction end</p>
+<CountdownTimer productId={product.id}/>
+<Button className='w-100 mb-4'
+              style={{ backgroundColor: '#783584', color: 'white', fontSize: '15px', padding: '5px 2px', borderRadius: '15px', borderColor: 'transparent', margin: '10px', width: '150px', height: '30px', marginLeft: 'auto', marginRight: 'auto', cursor: "pointer" }}>
+              Offer Bid
+            </Button>
+</div>):<Button className='w-100 mb-4'
               style={{ backgroundColor: '#783584', color: 'white', fontSize: '15px', padding: '5px 2px', borderRadius: '15px', borderColor: 'transparent', margin: '10px', width: '150px', height: '30px', marginLeft: 'auto', marginRight: 'auto', cursor: "pointer" }}>
               Buy Now
-            </Button>
-            <div style={{ background: 'lightgray',borderColor:'black', padding: '20px', borderRadius: '5px',marginTop:'40px'}}>
+            </Button>}
+            
+            {/* <div style={{ background: 'lightgray',borderColor:'black', padding: '20px', borderRadius: '5px',marginTop:'40px'}}>
             <p style={{ color: 'black' }}>
               <FaTruck style={{ marginRight: '5px' }} />
               Free delivery
@@ -128,7 +143,7 @@ logout</button>
               Return delivery
             </p>
             <Link style={{ color: 'black', marginTop: '10px' }}>Free 30 day delivery returns</Link>
-          </div>
+          </div> */}
           </div>
         </div>
       </div>

@@ -63,7 +63,7 @@ function Shop() {
       }}>Auction</Button>
       </Link>
     ) : (
-      <Link to={`/detail/${product.id}`}>
+      <Link to={`/shop`}>
         <Button className='w-100 mb-4'style={{ backgroundColor:' #118dda',
         color:'white',
         fontSize:'15px',
