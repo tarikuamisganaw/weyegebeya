@@ -115,7 +115,7 @@ await logout()
     activeColor="#ffd700"
   />
 <div style={{marginTop:'30px'}}>
-            <p style={{ color: 'black', fontSize: '18px', fontWeight: 'bold' }}>${product.product_price}</p>
+            <p style={{ color: 'black', fontSize: '18px', fontWeight: 'bold' }}>start bid price:${product.product_price}</p>
            
             <p style={{ color: 'black' }}>Only {product.product_amount} items left</p>
             </div>
