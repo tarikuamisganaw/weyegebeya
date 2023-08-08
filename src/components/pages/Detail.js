@@ -124,7 +124,7 @@ await logout()
               <p>time left for auction end</p>
 <CountdownTimer productId={product.id}/>
 <Button className='w-100 mb-4'
-              style={{ backgroundColor: '#783584', color: 'white', fontSize: '15px', padding: '5px 2px', borderRadius: '15px', borderColor: 'transparent', margin: '10px', width: '150px', height: '30px', marginLeft: 'auto', marginRight: 'auto', cursor: "pointer" }}>
+              style={{ backgroundColor: '#783584', color: 'white', fontSize: '15px', padding: '5px 2px', borderRadius: '15px', borderColor: 'transparent', margin: '10px', marginLeft:'50px',width: '150px', height: '30px',marginRight: 'auto', cursor: "pointer" }}>
               Offer Bid
             </Button>
 </div>):<Button className='w-100 mb-4'

@@ -52,7 +52,7 @@ export default function Timer({
 }) {
   return (
     <TimerWrapper>
-      <BsStopwatch className="stop-watch " />
+      <BsStopwatch style={{marginLeft:"5px",marginTop:"17px"}} className="stop-watch " />
       <div className="d-flex flex-column">
         <label>dd</label>
         <input value={hours} onChange={changeHours} />
