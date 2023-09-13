@@ -76,7 +76,18 @@ async function handleSubmit(e) {
 useEffect(()=>{
 if(user!=null){
   console.log('signedin')
+  if( user.email=="admin@gmail.com"){
+    console.log(user.email)
+    console.log(user.password)
+    
+    
   navigate('/account')
+  }
+  else{
+    navigate('/')
+  }
+ 
+ 
 }
 },[user])
   return (

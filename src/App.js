@@ -9,13 +9,16 @@ import { AuthContextProvider } from "./context/AuthContext";
 
 import Protected from "./components/pages/Protected";
 import PhoneSignUp from "./components/pages/PhoneSignUp";
-
-import Dashboard from "./components/pages/Dashboard2";
+import {configureStore} from '@reduxjs/toolkit'
+import { Provider } from "react-redux";
+import Dashboard from "./components/pages/Dashboard";
 import { ResetPassword } from "./components/accountBox/ForgotPassword";
 // import AdminProFile from "./components/pages/AdminProFile";
 import ProfileAdmin from "./components/pages/ProfileAdmin";
 import Shop from "./components/pages/shop"
 import Deatail from "./components/pages/Detail";
+import Dashboarder from "./components/pages/dashenew";
+import cartReducer from "./features/CartSlice";
 
 // const AppContainer = styled.div`
 //   width: 100%;
@@ -29,25 +32,35 @@ import Deatail from "./components/pages/Detail";
 // `;
 
 
+
 function App() {
+  const store=configureStore({
+    reducer:{
+      cart:cartReducer
+    }
+
+  })
   return (
    <>
    {/* <Login/> */}
    <AuthContextProvider>
-   
+   <Provider store={store}>
     <Routes>
+    <Route  exact path="/"  element={<Shop />}/> 
    
-    <Route exact path="/"  element={<Login/>}/>
+    <Route exact path="/login"  element={<Login/>}/>
     <Route exact path="/profile"  element={<Protected><ProfileAdmin/></Protected>}/>
+
+
     <Route exact path="/phoneSignUp" element={<PhoneSignUp/>}/>
-    <Route path="/shop" exact element={<Shop />}></Route> 
-    <Route path="/detail/:id" exact element={<Deatail />}></Route> 
+    
+    <Route path="/detail/:id"  element={<Deatail />}></Route> 
 <Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
 <Route exact path="/forgot" element={<ResetPassword/>}/>
-
+<Route exact path="/dasher" element={<Dashboarder/>}/>
 
     </Routes>
-    
+    </Provider>
     </AuthContextProvider>
     </>
   );

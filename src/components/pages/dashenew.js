@@ -111,6 +111,7 @@ const [numBranches, setNumBranches] = useState(0);
     ],
     
   };
+  
   const threedata = {
     labels: busNames,
     datasets: [
@@ -121,9 +122,9 @@ const [numBranches, setNumBranches] = useState(0);
           y: branch.no_of_sales,
           z: branch.no_of_sales,
         })),
-        fill: false,
+        fill: true,
         borderColor: 'red',
-        tension: 0.1,
+        tension: 0.4,
       },
     ],
   };
