@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ResetPassword } from "./ForgotPassword";
 import { async } from "@firebase/util";
+import Footer from "../pages/common/Footer";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 // import { GoogleLogin } from '@react-oauth/google';
 // import { FcGoogle } from "react-icons/fc";
@@ -91,6 +92,7 @@ if(user!=null){
 }
 },[user])
   return (
+    <div>
     <BoxContainer>
       <FormContainer>
       <Input ref={emailRef} type="email" placeholder="Email" style={{ color: 'black' }}
@@ -139,5 +141,8 @@ if(user!=null){
         </BoldLink>
       </MutedLink>
     </BoxContainer>
+
+   
+    </div>
   );
 }

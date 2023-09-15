@@ -123,6 +123,10 @@ const hadleproduct=()=>{
   navigate('/')
 
 }
+const handleorder=()=>{
+  navigate('/order')
+
+}
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -204,6 +208,8 @@ end_date_of_bidding: startDate ? startDate.toISOString() : null,
   Insert Product </button></div>
   <div><button onClick={hadleproduct} className="button"><AiOutlineEye style={{marginRight: '10px'}} />
   view Product </button></div>
+  <div><button onClick={handleorder} className="button"><AiOutlineEye style={{marginRight: '10px'}} />
+  order info </button></div>
        
         
         <button onClick={handleSignOut} className="button">

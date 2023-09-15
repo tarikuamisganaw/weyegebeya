@@ -19,6 +19,8 @@ import Shop from "./components/pages/shop"
 import Deatail from "./components/pages/Detail";
 import Dashboarder from "./components/pages/dashenew";
 import cartReducer from "./features/CartSlice";
+import OnSale from "./components/pages/OnSale";
+import Order from "./components/pages/Order";
 
 // const AppContainer = styled.div`
 //   width: 100%;
@@ -58,6 +60,8 @@ function App() {
 <Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
 <Route exact path="/forgot" element={<ResetPassword/>}/>
 <Route exact path="/dasher" element={<Dashboarder/>}/>
+<Route exact path="/onSale" element={<OnSale/>}/>
+<Route exact path="/order" element={<Order/>}/>
 
     </Routes>
     </Provider>

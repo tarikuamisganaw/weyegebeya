@@ -40,11 +40,17 @@ reducers:{
 
         localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
     },
-   
+    clearCart(state) {
+        state.cartItems = [];
+        state.cartTotalQuantity = 0;
+        state.cartTotalPrice = 0;
+        localStorage.removeItem("cartItems");
+      }
+      
 }
 
 
 })
 
-export const {addCart,removeFromCart,decreaseQuantity}=cartSlice.actions
+export const {addCart,removeFromCart,decreaseQuantity, clearCart}=cartSlice.actions
 export default cartSlice.reducer

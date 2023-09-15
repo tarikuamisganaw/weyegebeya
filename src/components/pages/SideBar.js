@@ -29,6 +29,10 @@ const SideBar = ({ toggleModal }) => {
     const handleProfile=()=>{
         navigate('/profile')
       }
+      const viewOnSale=()=>{
+        navigate('/onSale')
+
+      }
       const {user,logout}=UserAuth()
   const [modale, setModale] = useState(false);
   const [modal, setModal] = useState(false);
@@ -57,6 +61,8 @@ const SideBar = ({ toggleModal }) => {
   Update/Insert Profile </button></div>
   <div><button onClick={toggleModale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
   Sell Product </button></div>
+  <div><button onClick={viewOnSale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
+  onSell Product </button></div>
  
        
         

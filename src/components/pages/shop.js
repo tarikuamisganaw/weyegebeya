@@ -10,7 +10,7 @@ import watch from '../../images/vintage metal watch.webp';
 import {supabase} from '../../config/supabaseClient'
 import { Form,Alert, Button  } from 'react-bootstrap'
 import { UserAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaSearch, FaUser } from 'react-icons/fa';
 import {FiLogOut, } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -20,14 +20,18 @@ import Search from './Search';
 import HomeBanner from './HomeBanner';
 import Footer from './common/Footer';
 import Sell from './Sell';
-import {addCart, decreaseQuantity, removeFromCart} from '../../features/CartSlice'
+import {addCart, decreaseQuantity, removeFromCart,clearCart} from '../../features/CartSlice'
 import SideBar from './SideBar';
+
+import uuid from 'react-uuid';
 import HomeSection from './home/HomeSection';
 
 function Shop() {
   
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    let newUserId = uuid(); 
 
     const toggleModal = () => {
       setModal(!modal);
@@ -59,6 +63,50 @@ const incrementCartQuantity = (product) => {
   setModal(true);
 };
 
+
+const handleOrder = async () => {
+  setLoading(true);
+
+  // Get total number of items and total price from cart
+  const noItems = cart.cartItems.reduce((total, product) => total + product.cartQunatity, 0);
+  const totalPrice = cart.cartItems.reduce((total, product) => total + product.product_price * product.cartQunatity, 0);
+
+  // Insert order into order_table
+  const { data, error } = await supabase.from('ordering').upsert([
+    {
+      id: newUserId,
+      user_id: user.uid,
+      no_items: noItems,
+      total_price: totalPrice,
+    },
+  
+  ]);
+
+  if (error) {
+    console.error(error);
+  } else {
+    // Update product_table with new quantities
+    for (const product of cart.cartItems) {
+      const { data: updatedProduct, error } = await supabase
+        .from('products_table')
+        .update({ 
+          product_amount: product.product_amount - product.cartQunatity <= 0 
+            ? "soldout" 
+            : product.product_amount - product.cartQunatity 
+        })
+        .eq('id', product.id)
+        .single();
+    
+      if (error) {
+        console.error(error);
+      }
+    }
+
+    dispatch(clearCart());
+  }
+
+  setLoading(false);
+};;
  const toggleModale = () => {
   setModale(!modale);
 };
@@ -136,7 +184,7 @@ await logout()
           <div>
           <h2>{product.product_name}</h2>
           <p style={{marginTop:'2px'}}>${product.product_price}</p>
-          <p style={{marginTop:'2px'}}> {product.product_desc}</p>
+          <p style={{marginTop:'2px'}}> items are {product.product_amount} </p>
           </div>
           {product.bid_info === 'bid' ? (
             <Link to={`/detail/${product.id}`}>
@@ -224,7 +272,7 @@ await logout()
       </table>
      
       <div className="total-price">Total price:${totalPrice}</div>
-      <Button    style={{ backgroundColor:' #118dda',
+      <button disabled={loading} onClick={handleOrder} style={{ backgroundColor:' #118dda',
         color:'white',
         fontSize:'15px',
         padding: '5px 2px',
@@ -236,7 +284,12 @@ await logout()
         marginLeft:'130px',
         cursor: "pointer"
         
-        }}>order</Button>
+        }}>
+        {loading ? 'Placing order...' : 'Place Order'}
+      </button>
+
+     
+      
        
       <Button className='close-modal' onClick={toggleModal}>
         <AiOutlineClose />
