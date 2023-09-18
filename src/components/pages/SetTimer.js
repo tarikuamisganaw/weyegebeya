@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import Timer from "./Clock";
 import {supabase} from '../../config/supabaseClient'
 import { BsFillPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
+import uuid from 'react-uuid'
+import { UserAuth } from "../../context/AuthContext";
 
-
-export default function CountdownTimer({ productId }) {
+export default function CountdownTimer({ productId,product }) {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -13,7 +14,8 @@ export default function CountdownTimer({ productId }) {
   const [isRunning, setIsRunning] = useState(null);
   const [createdAt, setCreatedAt] = useState(null);
   // End of Time
-
+  let newUserId = uuid();
+  const {user,logout}=UserAuth()
   const [showEndScreen, setShowEndScreen] = useState({
     show: false,
     message: "",
@@ -38,7 +40,51 @@ export default function CountdownTimer({ productId }) {
     fetchCreatedAt();
   }, []);
   // Start Pause & Stop functions
+  const placeOrder = async () => {
+    try {
+      // Create array of items from cart
+  const items = [{
+    id: product.id,
+    image:product.product_image,
+    name: product.product_name,
+    amount: product.product_amount,
+    sellerid:product.customer_id,
+   
+  }];
+  const price= product.product_amount*product.product_price
+      const { data, error } = await supabase
+        .from('ordering')
+        .insert([
+          {
+            id: newUserId,
+            user_id: product.bidder_id,
+          no_items: product.product_amount,
+            total_price: price,
+             items: items
+          },
+        ]);
 
+      if (error) {
+        console.error('Error inserting order:', error);
+      } else {
+        console.log('Order placed successfully:', data);
+      }
+    } catch (error) {
+      console.error('Error inserting order:', error);
+    }
+    const { data: updatedProduct, error } = await supabase
+        .from('products_table')
+        .update({ 
+          product_amount:"soldout"
+            
+        })
+        .eq('id', product.id)
+        .single();
+    
+      if (error) {
+        console.error(error);
+      }
+  };
   // Start
   function startTimer() {
     if (hours !== 0 || minutes !== 0 || seconds !== 0 || milliseconds !== 0) {
@@ -69,6 +115,7 @@ export default function CountdownTimer({ productId }) {
     } else {
       setShowEndScreen({ ...showEndScreen, show: true });
       resetTimer();
+      placeOrder();
     }
   };
 
@@ -114,19 +161,7 @@ export default function CountdownTimer({ productId }) {
         changeHours={changeHours}
       />
       <br />
-      {/* {!isRunning && (
-        <button className="btn btn-accept btn-lg" onClick={startTimer}>
-          <BsFillPlayFill />
-        </button>
-      )} */}
-      {/* {isRunning && (
-        <button className="btn btn-warning btn-lg" onClick={pauseTimer}>
-          <BsPauseFill />
-        </button>
-      )}{" "}
-      <button className="btn btn-danger btn-lg" onClick={stopTimer}>
-        <BsStopFill />
-      </button> */}
+      
     </div>
   );
 }

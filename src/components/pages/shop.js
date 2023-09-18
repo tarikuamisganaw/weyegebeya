@@ -22,6 +22,7 @@ import Footer from './common/Footer';
 import Sell from './Sell';
 import {addCart, decreaseQuantity, removeFromCart,clearCart} from '../../features/CartSlice'
 import SideBar from './SideBar';
+import swal from 'sweetalert';
 
 import uuid from 'react-uuid';
 import HomeSection from './home/HomeSection';
@@ -36,14 +37,19 @@ function Shop() {
     const toggleModal = () => {
       setModal(!modal);
     };
+    const toggleModali = () => {
+      setModali(!modali);
+    };
     const [searchQuery, setSearchQuery] = useState('');
     const cart=useSelector((state)=>state.cart)
  const [bid,setBid]=useState([])
  const [clist,setclist]=useState([])
  const [modal, setModal] = useState(false);
  const [modale, setModale] = useState(false);
+ const [modali, setModali] = useState(false);
  const navigate=useNavigate()
  const {user,logout}=UserAuth()
+ const [failMessage, setFailMessage] = useState('');
 const  dispatch=useDispatch()
 const totalPrice = cart.cartItems.reduce((total, product) => total + product.product_price * product.cartQunatity, 0);
  const handleRemoveCart = (product) => {
@@ -58,9 +64,13 @@ const incrementCartQuantity = (product) => {
   dispatch(addCart(product))
 };
  const addToCart = (product) => {
-  dispatch(addCart(product))
+  if(!user){
+    swal ("sigup first to add to cart ")
+  }else{
+    dispatch(addCart(product))
+  setModali(true);
+  }
   
-  setModal(true);
 };
 
 
@@ -71,6 +81,16 @@ const handleOrder = async () => {
   const noItems = cart.cartItems.reduce((total, product) => total + product.cartQunatity, 0);
   const totalPrice = cart.cartItems.reduce((total, product) => total + product.product_price * product.cartQunatity, 0);
 
+  // Create array of items from cart
+  const items = cart.cartItems.map((product) => ({
+    id: product.id,
+    image:product.product_image,
+    name: product.product_name,
+    amount: product.cartQunatity,
+    sellerid:product.customer_id,
+   
+  }));
+
   // Insert order into order_table
   const { data, error } = await supabase.from('ordering').upsert([
     {
@@ -78,9 +98,10 @@ const handleOrder = async () => {
       user_id: user.uid,
       no_items: noItems,
       total_price: totalPrice,
+      items: items,
     },
   
-  ]);
+  ],{ returning: 'minimal', key: 'items.id' });
 
   if (error) {
     console.error(error);
@@ -155,7 +176,7 @@ await logout()
   return (
     <div >
       
-<Header/>
+      <Header toggleModali={toggleModali} />
 
 <Search onsetSearchQuery={setSearchQuery} searchQuery={searchQuery} />
 {/* <HomeBanner/> */}
@@ -225,7 +246,7 @@ await logout()
             
     </div>
     
-    {modal && (
+    {modali && (
   <div className="modal">
     <div onClick={toggleModal} className="overlay"></div>
     <div className="modal-content" style={{width:'500px'}}>
@@ -291,7 +312,7 @@ await logout()
      
       
        
-      <Button className='close-modal' onClick={toggleModal}>
+      <Button className='close-modal' onClick={toggleModali}>
         <AiOutlineClose />
       </Button>
     </div>

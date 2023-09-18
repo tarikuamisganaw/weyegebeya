@@ -6,6 +6,20 @@
     margin-bottom:20px;
     box-shadow: 0 0 0px #ccc;
   }
+  .orderb{
+    background-color: #118dda;
+    color:white;
+    font-size:15px;
+    padding: 5px 2px;
+    border-radius: 5px;
+    border-color:transparent;
+    margin:10px;
+    width:100px;
+    height:30px;
+    margin-left:30px;
+    cursor: pointer;
+    
+  }
   .details{
     display: flex;
     justify-content: space-around;

@@ -9,14 +9,16 @@ import { MdMenu } from 'react-icons/md';
 import { useNavigate } from "react-router-dom"
 import { FaShoppingCart, FaSearch, FaUser } from 'react-icons/fa';;
 // import { MenuIcon } from 'react-icons/md';
-const Header = () => {
+const Header = ({ toggleModali }) => {
   const {user,logout}=UserAuth()
   const [modale, setModale] = useState(false);
   const [modal, setModal] = useState(false);
+  const [modali, setModali] = useState(false);
   const navigate=useNavigate()
    const toggleModale = () => {
           setModale(!modale);
         };
+       
     const handleSignOut=async()=>{
       try{
       await logout()
@@ -64,7 +66,9 @@ const Header = () => {
         {user && (
           <div className="header__actions">
             <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
-            <span className="header__action-title" ><span><FaShoppingCart style={{width:'25px'}}/></span></span>
+            <span className="header__action-title"onClick={toggleModali}>
+  <span><FaShoppingCart style={{width:'25px'}}/></span>
+</span>
             </div>
           )}
       </div>

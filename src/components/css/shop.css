@@ -189,7 +189,20 @@ body.active-modal {
   bottom: 0;
   position: fixed;
 }
-
+.orderb{
+  backgroundColor: #118dda;
+  color:white;
+  fontSize:15px;
+  padding: 5px 2px;
+  borderRadius: 5px;
+  borderColor:transparent;
+  margin:10px;
+  width:100px;
+  height:30px;
+  marginLeft:130px;
+  cursor: pointer;
+  
+}
 .overlay {
   background: rgba(49,49,49,0.8);
 }

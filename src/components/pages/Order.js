@@ -5,9 +5,19 @@ import '../css/shop.css';
 import { UserAuth } from "../../context/AuthContext";
 import { FaTrash } from 'react-icons/fa';
 import Header from './Header';
+import OrderModal from './OrderModal';
 const Order = () => {
     const [products,setProducts]=useState([])
     const {user,logout}=UserAuth()
+    const [selectedOrder, setSelectedOrder] = useState(null);
+
+const handleOpenModal = (order) => {
+  setSelectedOrder(order);
+};
+
+const handleCloseModal = () => {
+  setSelectedOrder(null);
+};
     const handleDelete = async (productId) => {
       try {
         const { error } = await supabase
@@ -46,6 +56,7 @@ const Order = () => {
     }, [user.uid]);
     return (
       <div>
+      <div>
         <Header/> 
         <h2>ordered items</h2>
         <table>
@@ -77,12 +88,18 @@ const Order = () => {
         <td><button onClick={() => handleDelete(product.id)} style={{color:'red'}}>
       <FaTrash />
     </button></td>
+    <td><button onClick={() => handleOpenModal(product)} className="orderb">see detail</button></td>
         
       </tr>
     ))}
   </tbody>
         </table>
+        
        
+      </div>
+      {selectedOrder && (
+  <OrderModal order={selectedOrder} onClose={handleCloseModal} />
+)}
       </div>
     )
 }
