@@ -55,23 +55,26 @@ const Header = ({ toggleModali }) => {
           )
         }
       </div>
-      <div className="header__actions">
+      <div  style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
       
 
-        <span className="header__action-title"onClick={handlehome} ><span>Home</span></span>
-        {!user && (
-        <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
-        )}
-       
-        {user && (
-          <div className="header__actions">
-            <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
-            <span className="header__action-title"onClick={toggleModali}>
-  <span><FaShoppingCart style={{width:'25px'}}/></span>
+      <span className="header__action-title"onClick={handlehome} ><span>Home</span></span>
+      {!user && (
+      <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
+      )}
+   
+     
+      {user && (
+        <>
+          <span  className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
+          <span className="header__action-title"onClick={toggleModali}>
+<span><FaShoppingCart style={{width:'25px'}}/></span>
 </span>
-            </div>
-          )}
-      </div>
+
+          </>
+        )}
+         </div>
+      
     </div>
     {modale && <Sell toggleModale={toggleModale} />}
 

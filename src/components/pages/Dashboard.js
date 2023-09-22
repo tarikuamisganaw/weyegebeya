@@ -204,10 +204,10 @@ end_date_of_bidding: startDate ? startDate.toISOString() : null,
           </div>
   <div><button onClick={handleProfile} className="button"><MdPersonAdd style={{marginRight: '10px'}} />
   Update/Insert Profile </button></div>
-  <div><button onClick={toggleModale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
+  {/* <div><button onClick={toggleModale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
   Insert Product </button></div>
   <div><button onClick={hadleproduct} className="button"><AiOutlineEye style={{marginRight: '10px'}} />
-  view Product </button></div>
+  view Product </button></div> */}
   <div><button onClick={handleorder} className="button"><AiOutlineEye style={{marginRight: '10px'}} />
   order info </button></div>
        

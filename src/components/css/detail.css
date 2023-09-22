@@ -101,6 +101,82 @@
     padding: 10px 25px;
     margin-top: 15px;
   }
+  .header {
+    border-bottom: 1px solid #e2e8f0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0.25rem 0;
+    width: 100%;
+  }
+  
+  .header__app-name {
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .header__left {
+    align-items: center;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: max-content max-content;
+    padding-left: 4rem;
+  }
+  
+  .header__left svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .header__image-wrapper {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .header__left img {
+    object-fit: cover;
+  }
+  
+  .header__right {
+    align-items: center;
+    display: grid;
+    font-size: 0.875rem;
+    grid-gap: 0.25rem;
+    grid-template-columns: max-content max-content max-content;
+    justify-content: right;
+    padding-right: 2rem;
+  }
+  
+  .header__action-title {
+    align-items: center;
+    color: #000;
+    display: grid;
+    font-size: 0.875rem;
+    justify-content: right;
+    padding-right: 0.5rem;
+    marigin-left:50;
+  }
+  
+  .header__right img {
+    width: 1.5rem;
+  }
+  
+  .header__actions {
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: max-content max-content max-content max-content max-content;
+    justify-content: right;
+    padding-right: 3.5rem;
+    margin-left:1000px;
+  }
+  
+  .header__action-title span:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  
   
   @media (max-width: 500px){
     .thumb{

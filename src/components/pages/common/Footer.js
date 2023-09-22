@@ -23,17 +23,17 @@ return (
 		</Column>
 		<Column>
 			<Heading>Services</Heading>
-			<FooterLink href="#">Writing</FooterLink>
-			<FooterLink href="#">Internships</FooterLink>
-			<FooterLink href="#">Coding</FooterLink>
-			<FooterLink href="#">Teaching</FooterLink>
+			<FooterLink href="#">Selling products</FooterLink>
+			<FooterLink href="#">Auction</FooterLink>
+			<FooterLink href="#">Delivery</FooterLink>
+			
 		</Column>
 		<Column>
 			<Heading>Contact Us</Heading>
-			<FooterLink href="#">Uttar Pradesh</FooterLink>
-			<FooterLink href="#">Ahemdabad</FooterLink>
-			<FooterLink href="#">Indore</FooterLink>
-			<FooterLink href="#">Mumbai</FooterLink>
+			<FooterLink href="#">weyegebeya@gmail.com</FooterLink>
+			<FooterLink href="#">+251978654325</FooterLink>
+			<FooterLink href="#">Addis Ababa around Dembel</FooterLink>
+			<FooterLink href="#"></FooterLink>
 		</Column>
 		<Column>
 			<Heading>Social Media</Heading>
@@ -67,7 +67,10 @@ return (
 			</i>
 			</FooterLink>
 		</Column>
+		
 		</Row>
+		<p style={{ color:'white',alignContent:'center',marginLeft:'400px' }}>Copyright © 2023 weye gebeya</p>
+		
 	</Container>
 	</Box>
 );

@@ -11,7 +11,8 @@ import back from '../../images/anime.gif'
 import icon from '../../images/icon.png'
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'; 
+import '../css/shop.css';
 // import "bootstrap/dist/css/bootstrap.min.css";
 import {supabase} from '../../config/supabaseClient'
 import { UserAuth } from "../../context/AuthContext";
@@ -35,6 +36,12 @@ const navigate=useNavigate()
     
   
     const {user,logout}=UserAuth()
+    const handlelog=()=>{
+      navigate('/login')
+    }
+    const handlehome=()=>{
+      navigate('/')
+    }
     const handleSignOut=async()=>{
       try{
       await logout()
@@ -127,8 +134,7 @@ useEffect(() => {
 
   return (
     <>
-    <div style={{backgroundColor:'white',width:'100vw',display:"flex",
-    alignItems: "center",}}>
+    <div>
      {/* <div id="container"  style={{backgroundImage:`url(${back})`,height:'100%',
 width: '20%',
 backgroundSize:'contain',
@@ -138,35 +144,21 @@ marginRight:"0px",
 backgroundColor:'white'
 
 }}> */}
+ <div className="header">
+        <div className="header__actions">
+      
 
-      <div style={styles.sidebar}>
-        {/* <div style={styles.logo}>Admin Dashboard
-        
-      </div> */}
-      {/* <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p> */}
-      <p>Hello,{user?.displayName || user?.email || user?.phoneNumber }</p>
+      
+      <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
+      {!user && (
+      <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
+      )}
      
-        <div style={styles.menu}>
-          <div style={styles.menuItem}>
-            <FiUser style={styles.menuIcon} /> Users
-          </div>
-          <div style={styles.menuItem}>
-            <FiBarChart2 style={styles.menuIcon} /> Statistics
-          </div>
-          <div style={styles.menuItem}>
-            <FiSettings style={styles.menuIcon} /> Settings
-          </div>
-          <button onClick={handleSignOut} style={{backgroundColor:' #24a0e',
-  color:'black',
-  fontSize:'17px',
-  height:'40px',
-  width:'150px',
-  padding: '10px 10px',
-  borderRadius: '5px',
-  margin: '10px 0px',
-  borderColor:'transparent'}}>logout</button>
-          </div>
-          </div>
+       
+       
+       
+    </div>
+    </div>
        <div className="p-4 box" style={{width:'50%',height:'80%',backgroundColor:'white',mariginBottom:'10px',marginTop:'70px',marginLeft:'100px', border: '1px solid',
 padding: '10px',
 
@@ -294,7 +286,7 @@ style={{ backgroundColor:'transparent',
           
                
                <div style={{ width: "800px",
-    marginRight: "25px",}}>
+    marginRight: "35px",}}>
       <div>
   <label htmlFor="email"style={{ marginLeft:'20px'}} >
     Date of Birth:
@@ -309,6 +301,7 @@ style={{ backgroundColor:'transparent',
   
   required
   allowClear
+ 
 />
 </div>
 </div>
@@ -332,7 +325,9 @@ height:'40px'
 <div style={{ 
     marginRight: "25px",}}>
                <Button className='w-100 mb-4' onClick={()=>{
-  navigate('/account')
+                if (user?.email=="admin@gmail.com"){navigate('/account')}
+                else{navigate('/')}
+  
 }} style={{ backgroundColor:' #783584',
 color:'white',
 fontSize:'15px',

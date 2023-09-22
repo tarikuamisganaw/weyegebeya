@@ -4,13 +4,27 @@ import SideBar from './SideBar';
 import '../css/shop.css';
 import { UserAuth } from "../../context/AuthContext";
 import { FaTrash } from 'react-icons/fa';
-import Header from './Header';
+import HeaderExtra from './common/HeaderExtra';
+import { useNavigate } from "react-router-dom"
 import OrderModal from './OrderModal';
 const Order = () => {
     const [products,setProducts]=useState([])
     const {user,logout}=UserAuth()
+    const navigate=useNavigate()
     const [selectedOrder, setSelectedOrder] = useState(null);
-
+    const handleSignOut=async()=>{
+      try{
+      await logout()
+      }catch(error){
+         console.log(error)
+      }
+         }
+         const handlelog=()=>{
+          navigate('/login')
+        }
+        const handlehome=()=>{
+          navigate('/account')
+        }
 const handleOpenModal = (order) => {
   setSelectedOrder(order);
 };
@@ -57,7 +71,23 @@ const handleCloseModal = () => {
     return (
       <div>
       <div>
-        <Header/> 
+      <div className="header">
+        <div className="header__actions">
+      
+
+      <span className="header__action-title"onClick={handlehome} ><span>Dashboard</span></span>
+      <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
+      {!user && (
+      <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
+      )}
+     
+       
+       
+       
+    </div>
+    </div>
+        
+    
         <h2>ordered items</h2>
         <table>
           <thead>
@@ -65,7 +95,7 @@ const handleCloseModal = () => {
             <th> id</th>
               <th>Number of items ordered</th>
               <th>Total Price</th>
-              <th>User id</th>
+              <th>Buyer id</th>
              
             </tr>
           </thead>

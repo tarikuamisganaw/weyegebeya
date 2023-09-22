@@ -6,10 +6,25 @@ import { UserAuth } from "../../context/AuthContext";
 import { FaTrash } from 'react-icons/fa';
 import Header from './Header';
 import Footer from './common/Footer';
+import { useNavigate } from "react-router-dom"
 
 const OnSale = () => {
   const [products,setProducts]=useState([])
   const {user,logout}=UserAuth()
+  const navigate=useNavigate()
+  const handleSignOut=async()=>{
+    try{
+    await logout()
+    }catch(error){
+        console.log(error)
+    }
+  }
+  const handlelog=()=>{
+    navigate('/login')
+  }
+  const handlehome=()=>{
+    navigate('/')
+  }
   const handleDelete = async (productId) => {
     try {
       const { error } = await supabase
@@ -48,7 +63,21 @@ const OnSale = () => {
   }, [user.uid]);
   return (
     <div>
-       <Header/>
+       <div className="header">
+        <div className="header__actions">
+      
+
+      <span className="header__action-title"onClick={handlehome} ><span>Home</span></span>
+      <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
+      {!user && (
+      <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
+      )}
+     
+       
+       
+       
+    </div>
+    </div>
     <div> 
      
       <h2>onsale items</h2>
@@ -96,7 +125,7 @@ const OnSale = () => {
 
     </div>
   )
- 
+  
 }
 
-export default OnSale
+export default OnSale;

@@ -17,7 +17,7 @@ import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom"
 import { AiOutlineClose } from 'react-icons/ai';
 import Header from './Header';
-
+import HeaderExtra from './common/HeaderExtra';
 import swal from "sweetalert"
 const Deatail = () => {
   const { id } = useParams();
@@ -81,13 +81,35 @@ await logout()
     getProduct();
   }, [handleModalSubmit]);
 
-  
+  const handlelog=()=>{
+    navigate('/login')
+  }
+  const handlehome=()=>{
+    navigate('/')
+  }
   if (!product) {
     return <div>Loading...</div>;
   }
     return(
        <div>
-        <Header toggleModali={toggleModali} />
+         {/* <div className="header">
+        <div className="header__actions">
+      
+
+      <span className="header__action-title"onClick={handlehome} ><span>Home</span></span>
+      {!user && (
+      <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
+      )}
+     
+      {user && (
+        <div className="header__actions">
+          <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
+          
+        </div>
+        )}
+    </div>
+    </div> */}
+    <HeaderExtra/>
          
 <div className="app">
         <div className="header">
