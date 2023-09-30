@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import '../css/detail.css'
 
 // import DetailsThumb from './DetailThumb';
@@ -29,6 +29,63 @@ const Deatail = () => {
   const [showModal, setShowModal] = useState(false);
   const [failMessage, setFailMessage] = useState('');
   const [modali, setModali] = useState(false);
+  const [orderi,setOrderi]=useState(false)
+   const[orderly,setOrderly]=useState(false)
+   const [see,setSee]=useState(false)
+  const paypal = useRef();
+  const handleOrder = () => {
+   
+    const items = [{
+      id: product.id,
+      image:product.product_image,
+      name: product.product_name,
+      amount: product.product_amount,
+      sellerid:product.customer_id,
+     
+    }];
+    const price = parseFloat((product.product_amount * product.product_price).toFixed(2));
+        console.log(price)
+  
+  
+    window.paypal
+      .Buttons({
+        createOrder: function(data, actions) {
+          console.log(price)
+          return actions.order.create({
+            purchase_units: [{
+             
+              amount: {
+                currency_code: "USD",
+                value: price              },
+             
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+              // Payment successful, insert order into Supabase table
+              supabase.from('ordering').upsert({
+                user_id: user.uid,
+                no_items: product.product_amount,
+                total_price: price,
+                items: items,
+                payment_status:"paid",
+              }).then(() => {
+                return supabase.from('products_table')
+                  .update({ 
+                    product_amount:"soldout"
+                  })
+                  .eq('id', product.id)
+                  .single();
+              }).catch((error) => {
+                console.log(error);
+              
+              });
+            });
+          },
+        }).render(paypal.current);
+      }
+  
   const handleBidClick = () => {
     if(!user){
       swal ("sigup first to offer bid ")
@@ -62,9 +119,11 @@ await logout()
     console.log(error)
 }
     }
+    
   useEffect(() => {
     const getProduct = async () => {
       // Fetch the data from the product_table
+      
       const { data, error } = await supabase
         .from('products_table')
         .select('*')
@@ -75,11 +134,21 @@ await logout()
         console.log(error);
       } else {
         setProduct(data);
+       
       }
     };
 
     getProduct();
   }, [handleModalSubmit]);
+  const handleOrderlyChange = (newOrderly) => {
+    setOrderly(newOrderly);
+    // Perform any additional logic based on the new orderly value
+  };
+  const handleSee = (newe) => {
+    setSee(newe);
+    console.log(newe)
+    // Perform any additional logic based on the new orderly value
+  };
 
   const handlelog=()=>{
     navigate('/login')
@@ -92,23 +161,7 @@ await logout()
   }
     return(
        <div>
-         {/* <div className="header">
-        <div className="header__actions">
       
-
-      <span className="header__action-title"onClick={handlehome} ><span>Home</span></span>
-      {!user && (
-      <span className="header__action-title" onClick={handlelog} ><span>Signin</span></span>
-      )}
-     
-      {user && (
-        <div className="header__actions">
-          <span className="header__action-title" onClick={handleSignOut}><span>Logout</span></span>
-          
-        </div>
-        )}
-    </div>
-    </div> */}
     <HeaderExtra/>
          
 <div className="app">
@@ -137,35 +190,37 @@ await logout()
 <div style={{marginTop:'30px'}}>
             <p style={{ color: 'black', fontSize: '18px', fontWeight: 'bold' }}>start bid price:${product.product_price}</p>
            
-            <p style={{ color: 'black' }}>Only {product.product_amount} items left</p>
+            <p style={{ color: 'black' }}>
+  {product.product_amount === 'soldout' ? 'No items left' : `Only ${product.product_amount} items left`}
+</p>
             </div>
-            {product.bid_info === 'bid' ? (
-        <div>
-          <p>time left for auction end</p>
-          <CountdownTimer productId={product.id} product={product} />
-          <Button
-            className='w-100 mb-4'
-            style={{
-              backgroundColor: '#783584',
-              color: 'white',
-              fontSize: '15px',
-              padding: '5px 2px',
-              borderRadius: '15px',
-              borderColor: 'transparent',
-              margin: '10px',
-              marginLeft: '50px',
-              width: '150px',
-              height: '30px',
-              marginRight: 'auto',
-              cursor: 'pointer',
-            }}
-            onClick={handleBidClick}
-          >
-            Offer Bid
-          </Button>
+            <p>time left for auction end</p>
+        <CountdownTimer    onsetOrderPlaced={handleOrderlyChange} onNotUser={handleSee}
+        productId={product.id} product={product} />
        
-        </div>
+       {orderly ? ( <div> 
+              <p>auction has ended you won the bidding</p>
+              <div><button onClick={handleOrder} style={{ backgroundColor:' #118dda',
+        color:'white',
+        fontSize:'15px',
+        padding: '5px 2px',
+        borderRadius: '5px',
+        borderColor:'transparent',
+        margin:'10px',
+        width:'280px',
+        height:'30px',
+        marginLeft:'0px',
+        cursor: "pointer"
+        
+        }}>Pay for your order</button></div>
+            <div ref={paypal}></div></div>
+        
+      ) : see ? (
+        <p>Auction has ended.</p>
       ) : (
+        <div>
+       
+        
         <Button
           className='w-100 mb-4'
           style={{
@@ -176,19 +231,23 @@ await logout()
             borderRadius: '15px',
             borderColor: 'transparent',
             margin: '10px',
+            marginLeft: '50px',
             width: '150px',
             height: '30px',
-            marginLeft: 'auto',
             marginRight: 'auto',
             cursor: 'pointer',
           }}
+          onClick={handleBidClick}
         >
-          Buy Now
+          Offer Bid
         </Button>
+     
+      </div>
       )}
+    
  {failMessage && <Alert variant="success">{failMessage}</Alert>}
   {showModal  && <div className="modal" >
-      <div className="modal-content" >
+      <div className="modal-content" style={{width:'400px'}}>
         
         <p>Enter your bid price:</p>
         <input

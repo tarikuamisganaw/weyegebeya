@@ -1,4 +1,4 @@
-import {React,useState,useEffect} from 'react';
+import {React,useState,useEffect,useRef} from 'react';
 import '../css/shop.css';
 import { useDispatch,useSelector } from 'react-redux';
 import cargo_pants from '../../images/download.jpeg';
@@ -32,6 +32,7 @@ function Shop() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [checkut,setCheckout]=useState(false)
     let newUserId = uuid(); 
 
     const toggleModal = () => {
@@ -51,6 +52,9 @@ function Shop() {
  const {user,logout}=UserAuth()
  const [failMessage, setFailMessage] = useState('');
 const  dispatch=useDispatch()
+const paypal = useRef();
+const [checkout, setCheckOut] = useState(false);
+
 const totalPrice = cart.cartItems.reduce((total, product) => total + product.product_price * product.cartQunatity, 0);
  const handleRemoveCart = (product) => {
  
@@ -72,16 +76,68 @@ const incrementCartQuantity = (product) => {
   }
   
 };
+// function createPayment(orderId, totalPrice) {
+//   const noItems = cart.cartItems.reduce((total, product) => total + product.cartQunatity, 0);
+ 
 
+//   // Create array of items from cart
+//   const items = cart.cartItems.map((product) => ({
+//     id: product.id,
+//     name: product.product_name,
+//     quantity: product.cartQunatity,
+//     unit_amount: {
+//       currency_code: 'USD',
+//       value: product.product_price.toFixed(2)
+//     }
+//   }));
+//   return new Promise((resolve, reject) => {
+//     window.paypal
+//     .Buttons({
+//       createOrder: function(data, actions) {
+//         return actions.order.create({
+//           purchase_units: [{
+//             amount: {
+//               value: totalPrice.toFixed(2),
+//               currency_code: 'USD'
+//             }
+//           }]
+//         });
+//       },
+//       onApprove: function(data, actions) {
+//         return actions.order.capture().then(function(details) {
+//           // Payment successful, insert order into Supabase table
+//           supabase.from('ordering').insert({
+//             id: newUserId,
+//             user_id: user.uid,
+//             no_items: noItems,
+//             total_price: totalPrice,
+//             items: items,
+//           }).then(({ data, error }) => {
+//             if (error) {
+//               console.error(error);
+//               reject(error);
+//             } else {
+//               resolve(data);
+//             }
+//           });
+//         });
+//       },
+//       onCancel: function(data) {
+//         console.log('Payment cancelled');
+//         reject('Payment cancelled');
+//       },
+//       onError: function(err) {
+//         console.error(err);
+//         reject(err);
+//       }
+//     }).render(paypal.current);
+//   });
+// }
 
-const handleOrder = async () => {
+const handleOrder = () => {
   setLoading(true);
-
-  // Get total number of items and total price from cart
   const noItems = cart.cartItems.reduce((total, product) => total + product.cartQunatity, 0);
   const totalPrice = cart.cartItems.reduce((total, product) => total + product.product_price * product.cartQunatity, 0);
-
-  // Create array of items from cart
   const items = cart.cartItems.map((product) => ({
     id: product.id,
     image:product.product_image,
@@ -91,43 +147,53 @@ const handleOrder = async () => {
    
   }));
 
-  // Insert order into order_table
-  const { data, error } = await supabase.from('ordering').upsert([
-    {
-      id: newUserId,
-      user_id: user.uid,
-      no_items: noItems,
-      total_price: totalPrice,
-      items: items,
-    },
-  
-  ],{ returning: 'minimal', key: 'items.id' });
+  window.paypal
+    .Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+           
+            amount: {
+              currency_code: "USD",
+              value: totalPrice.toFixed(2)
+            },
+           
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            
+            // Payment successful, insert order into Supabase table
+            supabase.from('ordering').upsert({
+              user_id: user.uid,
+              no_items: noItems,
+              total_price: totalPrice,
+              items: items,
+              payment_status:"paid",
+            }).then(() => {
+              for (const product of cart.cartItems) {
+                return supabase.from('products_table')
+                  .update({ 
+                    product_amount: product.product_amount - product.cartQunatity <= 0 
+                    ? "soldout" 
+                    : product.product_amount - product.cartQunatity
+                  })
+                  .eq('id', product.id)
+                  .single();
+                }
+              setLoading(false);
+              dispatch(clearCart());
+            }).catch((error) => {
+              console.log(error);
+              setLoading(false);
+            });
+          });
+        },
+      }).render(paypal.current);
+}
 
-  if (error) {
-    console.error(error);
-  } else {
-    // Update product_table with new quantities
-    for (const product of cart.cartItems) {
-      const { data: updatedProduct, error } = await supabase
-        .from('products_table')
-        .update({ 
-          product_amount: product.product_amount - product.cartQunatity <= 0 
-            ? "soldout" 
-            : product.product_amount - product.cartQunatity 
-        })
-        .eq('id', product.id)
-        .single();
-    
-      if (error) {
-        console.error(error);
-      }
-    }
 
-    dispatch(clearCart());
-  }
-
-  setLoading(false);
-};;
  const toggleModale = () => {
   setModale(!modale);
 };
@@ -249,7 +315,7 @@ await logout()
     {modali && (
   <div className="modal">
     <div onClick={toggleModal} className="overlay"></div>
-    <div className="modal-content" style={{width:'500px'}}>
+    <div className="modal-content" style={{width:'700px'}}>
       <h2>Cart</h2>
       <table>
         <thead>
@@ -300,16 +366,18 @@ await logout()
         borderRadius: '5px',
         borderColor:'transparent',
         margin:'10px',
-        width:'100px',
+        width:'280px',
         height:'30px',
         marginLeft:'130px',
         cursor: "pointer"
         
         }}>
+          
         {loading ? 'Placing order...' : 'Place Order'}
       </button>
-
      
+      <div ref={paypal}></div>
+      
       
        
       <Button className='close-modal' onClick={toggleModali}>
