@@ -84,7 +84,7 @@ if(user!=null){
     
   navigate('/account')
   }
-  else{
+  else if( user.email!="admin@gmail.com"){
     navigate('/')
   }
  

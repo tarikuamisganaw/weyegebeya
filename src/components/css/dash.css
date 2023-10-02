@@ -7,8 +7,9 @@
   top: 0;
   left: 0;
     width: 250px;
+    height: 3000px;
     background: #333;
-  height:600px;
+ 
     color: #fff;
     padding: 20px;
     
@@ -66,7 +67,7 @@
   color:white;
   font-size:17px;
   height:40px;
-  width:150px;
+  width:170px;
   padding: 10px 10px;
   border-radius: 5px;
   margin: 10px;

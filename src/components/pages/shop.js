@@ -11,6 +11,7 @@ import {supabase} from '../../config/supabaseClient'
 import { Form,Alert, Button  } from 'react-bootstrap'
 import { UserAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Navigate } from 'react-router-dom'
 import { FaShoppingCart, FaSearch, FaUser } from 'react-icons/fa';
 import {FiLogOut, } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -28,6 +29,7 @@ import uuid from 'react-uuid';
 import HomeSection from './home/HomeSection';
 
 function Shop() {
+  
   
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -76,63 +78,7 @@ const incrementCartQuantity = (product) => {
   }
   
 };
-// function createPayment(orderId, totalPrice) {
-//   const noItems = cart.cartItems.reduce((total, product) => total + product.cartQunatity, 0);
- 
 
-//   // Create array of items from cart
-//   const items = cart.cartItems.map((product) => ({
-//     id: product.id,
-//     name: product.product_name,
-//     quantity: product.cartQunatity,
-//     unit_amount: {
-//       currency_code: 'USD',
-//       value: product.product_price.toFixed(2)
-//     }
-//   }));
-//   return new Promise((resolve, reject) => {
-//     window.paypal
-//     .Buttons({
-//       createOrder: function(data, actions) {
-//         return actions.order.create({
-//           purchase_units: [{
-//             amount: {
-//               value: totalPrice.toFixed(2),
-//               currency_code: 'USD'
-//             }
-//           }]
-//         });
-//       },
-//       onApprove: function(data, actions) {
-//         return actions.order.capture().then(function(details) {
-//           // Payment successful, insert order into Supabase table
-//           supabase.from('ordering').insert({
-//             id: newUserId,
-//             user_id: user.uid,
-//             no_items: noItems,
-//             total_price: totalPrice,
-//             items: items,
-//           }).then(({ data, error }) => {
-//             if (error) {
-//               console.error(error);
-//               reject(error);
-//             } else {
-//               resolve(data);
-//             }
-//           });
-//         });
-//       },
-//       onCancel: function(data) {
-//         console.log('Payment cancelled');
-//         reject('Payment cancelled');
-//       },
-//       onError: function(err) {
-//         console.error(err);
-//         reject(err);
-//       }
-//     }).render(paypal.current);
-//   });
-// }
 
 const handleOrder = () => {
   setLoading(true);
@@ -205,6 +151,8 @@ await logout()
 }
    }
   useEffect(() => {
+    
+  
     const fetchProducts = async () => {
       try {
         let supabaseQuery = supabase.from('products_table');

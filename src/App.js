@@ -21,6 +21,7 @@ import Dashboarder from "./components/pages/dashenew";
 import cartReducer from "./features/CartSlice";
 import OnSale from "./components/pages/OnSale";
 import Order from "./components/pages/Order";
+import ProtectedShop from "./components/pages/protectShop";
 
 // const AppContainer = styled.div`
 //   width: 100%;
@@ -57,7 +58,7 @@ function App() {
     <Route exact path="/phoneSignUp" element={<PhoneSignUp/>}/>
     
     <Route path="/detail/:id"  element={<Deatail />}></Route> 
-<Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
+<Route exact path="/account" element={<Dashboard/>}/>
 <Route exact path="/forgot" element={<ResetPassword/>}/>
 <Route exact path="/dasher" element={<Dashboarder/>}/>
 <Route exact path="/onSale" element={<OnSale/>}/>

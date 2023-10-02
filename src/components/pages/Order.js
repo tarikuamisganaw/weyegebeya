@@ -88,7 +88,7 @@ const handleCloseModal = () => {
     </div>
         
     
-        <h2>ordered items</h2>
+        <h2>order information</h2>
         <table>
           <thead>
             <tr>

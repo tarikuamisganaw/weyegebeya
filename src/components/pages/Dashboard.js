@@ -10,7 +10,7 @@ import { Table } from "antd";
 import { Link } from 'react-router-dom'
 import { UserAuth } from "../../context/AuthContext";
 
-
+import SearchId from "./SearchId";
 // import Profile from "./FirebaseP";
 import {  Input, DatePicker, } from 'antd';
 import ProfileAdmin from "./ProfileAdmin";
@@ -32,15 +32,13 @@ const Dashboard = () => {
   const [amount,setAmount]=useState('')
   const [select, setSelect] = useState('');
   const [datat,setDatat]=useState([])
-  const users = [
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" },
-    { id: 3, name: "Alex Johnson", email: "alex@example.com" },
-  ];
+  const [datati,setDatati]=useState([])
+  const [searchQuery, setSearchQuery] = useState('');
+  
   const columns = [
     {
-      title: "username",
-      dataIndex: "username",
+      title: "user_id",
+      dataIndex: "id",
     },
     {
       title: "full_name",
@@ -54,45 +52,36 @@ const Dashboard = () => {
       title: "phonenumber",
       dataIndex: "phonenumber",
     }, 
-   
-    
-    {
-      title: "date_of_birth",
-      dataIndex: "dateofbirth",
-    },
     {
       title: "location",
       dataIndex: "location",
     },
   ];
-  const data1 = [];
-  for (let i = 0; i < 46; i++) {
-    data1.push({
-      key: i,
-      name: `Edward King ${i}`,
-      product: 32,
-      staus: `London, Park Lane no. ${i}`,
-    });
-  }
+ 
   const fetchProfiles = async () => {
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*');
-
+      let query = supabase.from('profiles').select('*');
+  
+      if (searchQuery) {
+        query = query.eq('id', searchQuery);
+      }
+  
+      const { data, error } = await query;
+  
       if (error) {
         throw new Error(error.message);
       }
-
+  
       setDatat(data);
-      
+
+        
     } catch (error) {
       console.error('Error fetching profiles:', error.message);
     }
   };
   useEffect(() => {
     fetchProfiles();
-  }, []);
+  }, [searchQuery]);
   
 
   const statistics = [
@@ -186,29 +175,23 @@ end_date_of_bidding: startDate ? startDate.toISOString() : null,
   return (
     <div className="" style={styles.container}>
       <div className="" style={styles.sidebar}>
-        {/* <div style={styles.logo}>Admin Dashboard
         
-      </div> */}
-      {/* <p>Welcome,{user?.displayName || user?.email || user?.phoneNumber }</p> */}
      <ProfileInfo/>
      
         <div className="">
-        <div><button className="button" style={{marginleft: '0px'}}>
+        <div><button className="button" style={{marginleft: '0px',marginRight: '10px'}}>
             <FiUser className="menuIcon" /> Users
             </button>
           </div>
+          
           <div><button  className="button">
             <FiBarChart2 style={{marginRight: '10px'}} /> Statistics</button>
           </div>
-          
           </div>
-  <div><button onClick={handleProfile} className="button"><MdPersonAdd style={{marginRight: '10px'}} />
+  <div><button onClick={handleProfile} className="button"><MdPersonAdd style={{marginleft: '0px',marginRight: '3px'}} />
   Update/Insert Profile </button></div>
-  {/* <div><button onClick={toggleModale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
-  Insert Product </button></div>
-  <div><button onClick={hadleproduct} className="button"><AiOutlineEye style={{marginRight: '10px'}} />
-  view Product </button></div> */}
-  <div><button onClick={handleorder} className="button"><AiOutlineEye style={{marginRight: '10px'}} />
+  
+  <div><button onClick={handleorder} className="button"><AiOutlineEye style={{marginleft: '0px',marginRight: '10px'}} />
   order info </button></div>
        
         
@@ -217,26 +200,29 @@ end_date_of_bidding: startDate ? startDate.toISOString() : null,
   Logout</button>
       </div>
      
-      
+      <div  style={{marginTop:'0px'}}>
       <div style={styles.content}>
       <div className="logo">Admin Dashboard
+      <SearchId onsetSearchQuery={setSearchQuery} searchQuery={searchQuery} />
+        </div>
+        {!searchQuery && (<div className="statstics" style={{marginTop:'0px'}}>
+        <div  className="logo">statstics</div>
         
-        </div>
-        <h2>Statistics</h2>
-        <div className="statistics">
-          
-          {statistics.map((stat) => (
-            <div className="statItem" key={stat.label}>
-              <div>{stat.label}</div>
-              <div>{stat.value}</div>
-              
-            </div>
-          ))}
- 
+       
+       {statistics.map(function(stat) {
+        return (
+          <div className="statItem" key={stat.label}>
+            <div>{stat.label}</div>
+            <div>{stat.value}</div>
+          </div>
+        );
+      })}
+  </div>)}
 
-        </div>
+       
         <h2>Users</h2>
-        <Table columns={columns} dataSource={datat} />
+        <Table columns={columns} dataSource={datat} style={{marginleft: '300px'}}/>
+      </div>
       </div>
       {modale && <Sell toggleModale={toggleModale} />}
     </div>
@@ -249,10 +235,12 @@ const styles = {
     height: "100vh",
   },
   sidebar: {
+    position:"fixed",
     width: "250px",
     background: "#333",
     color: "#fff",
     padding: "20px",
+    height: "100vh",
   },
   logo: {
     fontSize: "24px",
@@ -263,6 +251,7 @@ const styles = {
   content: {
     flex: 1,
     padding: "20px",
+    marginLeft: '19%'
   },
   
 };
