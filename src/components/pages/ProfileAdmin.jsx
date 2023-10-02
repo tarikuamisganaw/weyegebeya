@@ -288,7 +288,7 @@ style={{ backgroundColor:'transparent',
                <div style={{ width: "800px",
     marginRight: "35px",}}>
       <div>
-  <label htmlFor="email"style={{ marginLeft:'20px'}} >
+  <label htmlFor="email" style={{ marginLeft:'20px'}} >
     Date of Birth:
   </label>
   </div>
@@ -301,7 +301,7 @@ style={{ backgroundColor:'transparent',
   
   required
   allowClear
- 
+  style={{ marginLeft:'20px'}}
 />
 </div>
 </div>

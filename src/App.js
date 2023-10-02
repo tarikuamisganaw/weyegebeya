@@ -58,7 +58,7 @@ function App() {
     <Route exact path="/phoneSignUp" element={<PhoneSignUp/>}/>
     
     <Route path="/detail/:id"  element={<Deatail />}></Route> 
-<Route exact path="/account" element={<Dashboard/>}/>
+<Route exact path="/account" element={<Protected><Dashboard/></Protected>}/>
 <Route exact path="/forgot" element={<ResetPassword/>}/>
 <Route exact path="/dasher" element={<Dashboarder/>}/>
 <Route exact path="/onSale" element={<OnSale/>}/>

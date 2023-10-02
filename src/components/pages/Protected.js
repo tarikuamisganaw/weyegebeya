@@ -4,7 +4,7 @@ import { UserAuth } from "../../context/AuthContext";
 
 const Protected = ({ children }) => {
   const { user } = UserAuth();
-  if (user.email!="admin@gmail.com") {
+  if (!user) {
     return <Navigate to='/' />;
   }
 

@@ -7,6 +7,7 @@ import {
   MutedLink,
   SubmitButton,
 } from "./common";
+import bcrypt from 'bcryptjs';
 import {createUserWithEmailAndPassword, signOut,signInWithEmailAndPassword} from 'firebase/auth'
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
@@ -77,12 +78,11 @@ async function handleSubmit(e) {
 useEffect(()=>{
 if(user!=null){
   console.log('signedin')
-  if( user.email=="admin@gmail.com"){
-    console.log(user.email)
-    console.log(user.password)
-    
-    
-  navigate('/account')
+  if (user.email === "admin@gmail.com") {
+    console.log(user.email);
+   
+    navigate('/account');
+    // Assume fetchedHashedPassword
   }
   else if( user.email!="admin@gmail.com"){
     navigate('/')

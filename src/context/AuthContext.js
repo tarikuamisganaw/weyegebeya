@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
     const [loading, setLoading] = useState(true)
     function login(email, password) {
       return signInWithEmailAndPassword(auth, email, password)
+      console.log(password);
      
   }
 
