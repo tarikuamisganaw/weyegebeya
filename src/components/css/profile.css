@@ -26,4 +26,57 @@ border-color:gray;
 border-style:outset
 
 
+
+  }
+  @media only screen and (max-width: 768px) {
+    #main {
+      font-size: 20px;
+      margin: 20px;
+    }
+  
+    #fields {
+      margin: 20px 0;
+    }
+  
+    input {
+      font-size: 20px;
+    }
+  
+    button {
+      font-size: 20px;
+      margin: 0 10px 0 0;
+    }
+  
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-width: 2px;
+    }
+  }
+  
+  /* Responsive Styles for Small Screens */
+  @media only screen and (max-width: 480px) {
+    #main {
+      font-size: 16px;
+      margin: 10px;
+    }
+  
+    #fields {
+      margin: 10px 0;
+    }
+  
+    input {
+      font-size: 16px;
+    }
+  
+    button {
+      font-size: 16px;
+      margin: 0 5px 0 0;
+    }
+  
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-width: 1px;
+    }
   }

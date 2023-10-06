@@ -179,7 +179,7 @@ end_date_of_bidding: startDate ? startDate.toISOString() : null,
      <ProfileInfo/>
      
         <div className="">
-        <div><button className="button" style={{marginleft: '0px',marginRight: '10px'}}>
+        <div><button className="button" style={{marginLeft: '0px',marginRight: '10px'}}>
             <FiUser className="menuIcon" /> Users
             </button>
           </div>
@@ -188,14 +188,14 @@ end_date_of_bidding: startDate ? startDate.toISOString() : null,
             <FiBarChart2 style={{marginRight: '10px'}} /> Statistics</button>
           </div>
           </div>
-  <div><button onClick={handleProfile} className="button"><MdPersonAdd style={{marginleft: '0px',marginRight: '3px'}} />
+  <div><button onClick={handleProfile} className="button" style={{marginLeft: '18px'}}><MdPersonAdd style={{marginleft: '5px',marginRight: '3px'}} />
   Update/Insert Profile </button></div>
   
   <div><button onClick={handleorder} className="button"><AiOutlineEye style={{marginleft: '0px',marginRight: '10px'}} />
   order info </button></div>
        
         
-        <button onClick={handleSignOut} className="button">
+        <button onClick={handleSignOut} className="button"  style={{marginLeft: '0px'}}>
     <FiLogOut style={{marginRight: '10px'}} />
   Logout</button>
       </div>

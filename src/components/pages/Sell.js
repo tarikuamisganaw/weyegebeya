@@ -90,7 +90,7 @@ const Sell = ({ toggleModale }) => {
   return (
     <div className="modal">
     <div onClick={toggleModale} className="overlay"></div>
-    <div className="modal-content" style={{width:'300px'}}>
+    <div className="modal-content" style={{width:'400px'}}>
       <h2 style={{color:"black",}}>Sell product</h2>
       {successMessage && <Alert variant="success" style={{color:"black",}}>{successMessage}</Alert>}
       <Form onSubmit={handleSubmit}>

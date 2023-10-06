@@ -98,6 +98,7 @@
   font-size: 0.8375rem;
 }
 
+  
 .menu {
   display: flex;
   font-size: 0.8375rem;
@@ -244,4 +245,9 @@
   height: 10rem;
   object-fit: cover;
   width: 10rem;
+}
+@media (max-width: 768px) {
+  .search__container {
+    padding: 0.5rem 1rem;
+  }
 }

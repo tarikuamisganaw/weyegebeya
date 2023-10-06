@@ -57,11 +57,11 @@ const SideBar = ({ toggleModal }) => {
      <ProfileInfo/>
      
         
-  <div><button onClick={handleProfile} className="button"><MdPersonAdd style={{marginRight: '10px'}} />
+  <div><button onClick={handleProfile} className="button" style={{marginLeft: '15px'}}><MdPersonAdd style={{marginRight: '10px'}} />
   Update/Insert Profile </button></div>
-  <div><button onClick={toggleModale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
+  <div><button onClick={toggleModale} className="button" style={{marginLeft: '1px'}}><AiOutlinePlusCircle style={{marginRight: '5px',marginLeft:'10px'}} />
   Sell Product </button></div>
-  <div><button onClick={viewOnSale} className="button"><AiOutlinePlusCircle style={{marginRight: '10px'}} />
+  <div><button onClick={viewOnSale} className="button" style={{marginLeft: '15px'}}><AiOutlinePlusCircle style={{marginRight: '5px'}} />
   onSell Product </button></div>
  
        

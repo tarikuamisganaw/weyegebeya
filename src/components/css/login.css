@@ -1,3 +1,31 @@
 ::placeholder {
     color: #ab34c5;
   }
+  .container {
+    background-color:white;
+    width:100vw;
+    display:flex;
+    align-items: center;
+
+  }
+  .content {
+    
+    height:100%;
+width: 40%;
+background-size:contain;
+background-repeat:no-repeat;
+background-position:center;
+margin-right:2000px;
+background-color:''
+
+  }
+  .app{
+
+    margin-left:750px;
+    margin-top:10px;
+  }
+  @media screen and (max-width: 768px) {
+    .content {
+      display: none;
+    }
+  }

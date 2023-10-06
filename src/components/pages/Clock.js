@@ -42,32 +42,33 @@ const TimerWrapper = styled.div`
 `;
 
 export default function Timer({
-  milliseconds,
+  days,
   seconds,
   minutes,
   hours,
   changeSeconds,
   changeMinutes,
   changeHours,
+  changeDays,
 }) {
   return (
     <TimerWrapper>
       <BsStopwatch style={{marginLeft:"5px",marginTop:"17px"}} className="stop-watch " />
       <div className="d-flex flex-column">
         <label>dd</label>
-        <input value={hours} onChange={changeHours} />
+        <input value={days} onChange={changeDays} />
       </div>{" "}
       <div className="d-flex flex-column">
         <label>hh</label>
-        <input value={minutes} onChange={changeMinutes} />
+        <input value={hours} onChange={changeHours} />
       </div>{" "}
       <div className="d-flex flex-column">
         <label>mm</label>
-        <input value={seconds} onChange={changeSeconds} />
+        <input value={minutes} onChange={changeMinutes} />
       </div>{" "}
       <div className="d-flex flex-column">
         <label>ss</label>
-        <input value={milliseconds} />
+        <input value={seconds} onChange={changeSeconds} />
       </div>
     </TimerWrapper>
   );

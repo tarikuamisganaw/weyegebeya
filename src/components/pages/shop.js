@@ -52,6 +52,7 @@ function Shop() {
  const [modali, setModali] = useState(false);
  const navigate=useNavigate()
  const {user,logout}=UserAuth()
+ const [showPaypal, setShowPaypal] = useState(false);
  const [failMessage, setFailMessage] = useState('');
 const  dispatch=useDispatch()
 const paypal = useRef();
@@ -78,6 +79,13 @@ const incrementCartQuantity = (product) => {
   }
   
 };
+const handleauction=(product)=>{
+  if(!user){
+    swal ("sigup first to see detail ")
+  }else{
+    navigate(`/detail/${product.id}`);
+  }
+}
 
 
 const handleOrder = () => {
@@ -92,7 +100,7 @@ const handleOrder = () => {
     sellerid:product.customer_id,
    
   }));
-
+  setShowPaypal(true);
   window.paypal
     .Buttons({
       createOrder: function(data, actions) {
@@ -106,6 +114,7 @@ const handleOrder = () => {
            
           }]
         });
+
       },
       onApprove: function(data, actions) {
           return actions.order.capture().then(function(details) {
@@ -136,6 +145,11 @@ const handleOrder = () => {
             });
           });
         },
+        onCancel: function(data) {
+          setShowPaypal(false); // Hide PayPal buttons
+          setLoading(false); // Reset loading state
+        }
+        
       }).render(paypal.current);
 }
 
@@ -212,7 +226,8 @@ await logout()
   .filter(
     (product) =>
       (!selectedCategory || product.category === selectedCategory) &&
-      (!searchQuery || product.product_name.includes(searchQuery))
+      (!searchQuery || product.product_name.includes(searchQuery)) &&
+      (product.product_amount !== "soldout")
   ).map((product) => (
        <div className="size" key={product.id}>
           <img src={`https://dfvcmxwvvqvmnpikczag.supabase.co/storage/v1/object/public/proImage/${product.product_image}`} alt={product.product_name} />
@@ -222,7 +237,7 @@ await logout()
           <p style={{marginTop:'2px'}}> items are {product.product_amount} </p>
           </div>
           {product.bid_info === 'bid' ? (
-            <Link to={`/detail/${product.id}`}>
+            // <Link to={`/detail/${product.id}`}>
       <Button className='w-100 mb-4'style={{ backgroundColor:' red',
       color:'white',
       fontSize:'15px',
@@ -235,8 +250,8 @@ await logout()
       marginLeft:'130px',
       cursor: "pointer"
       
-      }}>Auction</Button>
-      </Link>
+      }} onClick={() => handleauction(product)}>Auction</Button>
+      // </Link>
     ) : (
       // <Link to={`/shop`}>
         <Button className='w-100 mb-4'  onClick={() => addToCart(product)} style={{ backgroundColor:' #118dda',
@@ -307,23 +322,24 @@ await logout()
       </table>
      
       <div className="total-price">Total price:${totalPrice}</div>
-      <button disabled={loading} onClick={handleOrder} style={{ backgroundColor:' #118dda',
-        color:'white',
-        fontSize:'15px',
-        padding: '5px 2px',
-        borderRadius: '5px',
-        borderColor:'transparent',
-        margin:'10px',
-        width:'280px',
-        height:'30px',
-        marginLeft:'130px',
-        cursor: "pointer"
-        
-        }}>
-          
-        {loading ? 'Placing order...' : 'Place Order'}
-      </button>
-     
+      {!showPaypal && (
+  <button disabled={loading} onClick={handleOrder} style={{ backgroundColor:' #118dda',
+    color:'white',
+    fontSize:'15px',
+    padding: '5px 2px',
+    borderRadius: '5px',
+    borderColor:'transparent',
+    margin:'10px',
+    width:'280px',
+    height:'30px',
+    marginLeft:'130px',
+    cursor: "pointer"
+    
+    }}>
+      
+    {loading ? 'Placing order...' : 'Place Order'}
+  </button>
+)}
       <div ref={paypal}></div>
       
       

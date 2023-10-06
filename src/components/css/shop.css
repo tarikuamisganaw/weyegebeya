@@ -173,6 +173,7 @@ body.active-modal {
   overflow-y: hidden;
 }
 
+
 .btn-modal {
   padding: 10px 20px;
   display: block;
@@ -257,3 +258,41 @@ body.active-modal {
   font-size: 16px;
   font-weight: bold;
 }
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    margin-right: 0;
+  }
+  .content {
+    padding: 10px;
+  }
+  .explore {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+  }
+  .size {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 20px;
+  }
+  .menuItem {
+    margin-left: 10px;
+  }
+  .table th, .table td {
+    padding: 5px;
+    font-size: 12px;
+  }
+  .name {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .price {
+    font-size: 16px;
+  }
+} 

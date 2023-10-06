@@ -32,6 +32,7 @@ const Deatail = () => {
   const [orderi,setOrderi]=useState(false)
    const[orderly,setOrderly]=useState(false)
    const [see,setSee]=useState(false)
+   const [showPaypal, setShowPaypal] = useState(false);
   const paypal = useRef();
   const handleOrder = () => {
    
@@ -45,7 +46,7 @@ const Deatail = () => {
     }];
     const price = parseFloat((product.product_amount * product.product_price).toFixed(2));
         console.log(price)
-  
+        setShowPaypal(true);
   
     window.paypal
       .Buttons({
@@ -83,6 +84,10 @@ const Deatail = () => {
               });
             });
           },
+          onCancel: function(data) {
+            setShowPaypal(false); // Hide PayPal buttons
+            
+          }
         }).render(paypal.current);
       }
   

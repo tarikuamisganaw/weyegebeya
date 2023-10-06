@@ -10,12 +10,12 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-  const [milliseconds, setMilliseconds] = useState(0);
+  const [days, setDays] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
   const [createdAt, setCreatedAt] = useState(null);
   const[orderly,setOrderly]=useState(false)
   const [see,setSee]=useState(false)
-  
+  const [intervalId, setIntervalId] = useState(null);
   // End of Time
   let newUserId = uuid();
   const {user,logout}=UserAuth()
@@ -47,7 +47,13 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
     };
   
     fetchCreatedAt();
-  }, [orderly,see]);
+    const id = setInterval(() => {
+      calculateRemainingTime();
+    }, 1000);
+    setIntervalId(id);
+    return () => clearInterval(intervalId);
+  
+  }, [orderly,see,seconds]);
   // Start Pause & Stop functions
   const placeOrder = async () => {
     try {
@@ -96,7 +102,7 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
   };
   // Start
   function startTimer() {
-    if (hours !== 0 || minutes !== 0 || seconds !== 0 || milliseconds !== 0) {
+    if (hours !== 0 || minutes !== 0 || seconds !==0  || days!== 0) {
       setIsRunning(true);
       setShowEndScreen({ ...showEndScreen, show: false });
     } else {
@@ -111,27 +117,32 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
   // Stop
   const calculateRemainingTime = () => {
     const difference = new Date(createdAt) - new Date();
+    console.log(difference)
     if (difference > 0) {
-      const milliseconds =  Math.floor(difference / (1000 * 60 * 60 * 24)); 
-      const seconds = Math.floor((difference / 1000) % 60);
-      const minutes =  Math.floor((difference / 1000 / 60) % 60); 
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const newSeconds = Math.floor((difference / 1000) % 60);
+      const newMinutes = Math.floor((difference / 1000 / 60) % 60);
+      const newHours = Math.floor((difference / (1000 * 60 * 60)) % 24);
   
-      setMilliseconds(seconds);
-      setSeconds(minutes);
-      setMinutes(hours);
-      setHours(milliseconds);
+      // update state variables only when seconds change
+      if (newSeconds !== seconds) {
+        setDays(days);
+        setSeconds(newSeconds);
+        setMinutes(newMinutes);
+        setHours(newHours);
+      }
+      
+      setOrderly(false)
+      setSee(false)
     } else if (difference < 0 && product.bidder_id === user.uid) {
       setOrderly(true);
-      console.log(orderly)
-    
-    } else{
-      setSee(true)
-     console.log(see)
-     console.log(true)
+      console.log(orderly);
+    } else {
+      setSee(true);
+      console.log(see);
+      console.log(true);
     }
-    
-  };
+  }
 
   function stopTimer() {
     resetTimer();
@@ -140,7 +151,7 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
 
   function resetTimer() {
     setIsRunning(false);
-    setMilliseconds(0);
+    setDays(0);
     setSeconds(0);
     setMinutes(0);
     setHours(0);
@@ -154,6 +165,9 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
       onOrderPlaced();
     }
   }, [createdAt]);
+  const changeDays = (e) => {
+    setDays(e.target.value);
+  };
   const changeSeconds = (e) => {
     setSeconds(e.target.value);
   };
@@ -169,13 +183,14 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
         <h1 className="title  text-light">{showEndScreen.message}</h1>
       )}
       <Timer
-        milliseconds={milliseconds}
+        days={days}
         seconds={seconds}
         minutes={minutes}
         hours={hours}
         changeSeconds={changeSeconds}
         changeMinutes={changeMinutes}
         changeHours={changeHours}
+        changeDays={changeDays}
       />
       <br />
       

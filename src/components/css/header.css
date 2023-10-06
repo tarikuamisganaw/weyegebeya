@@ -75,3 +75,35 @@
   cursor: pointer;
   opacity: 0.8;
 }
+@media (max-width: 768px) {
+  .header__left {
+    padding-left: 2rem;
+  }
+  .header__right {
+    padding-right: 1rem;
+  }
+  .header__actions {
+    margin-left: 0;
+    padding-right: 1rem;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: end;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__left {
+    padding-left: 1rem;
+    grid-gap: 0.5rem;
+    grid-template-columns: max-content;
+  }
+  .header__right {
+    padding-right: 0.5rem;
+    grid-gap: 0.25rem;
+    grid-template-columns: repeat(3, max-content);
+  }
+  .header__actions {
+    padding-right: 0.5rem;
+    grid-gap: 0.25rem;
+    grid-template-columns: repeat(2, max-content);
+  }
+} 
