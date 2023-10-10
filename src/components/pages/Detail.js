@@ -185,13 +185,13 @@ await logout()
             </div>
             <p style={{ color: 'black', fontSize: '18px', fontWeight: 'bold' }}>short description</p>
             <li style={{ color: 'black' }}>{product.product_desc}</li>
-            <RatingStars
+            {/* <RatingStars
     count={5}
     value={rating}
     onChange={setRating}
     size={24}
     activeColor="#ffd700"
-  />
+  /> */}
 <div style={{marginTop:'30px'}}>
             <p style={{ color: 'black', fontSize: '18px', fontWeight: 'bold' }}>start bid price:${product.product_price}</p>
            

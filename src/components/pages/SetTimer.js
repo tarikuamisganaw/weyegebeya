@@ -55,51 +55,51 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
   
   }, [orderly,see,seconds]);
   // Start Pause & Stop functions
-  const placeOrder = async () => {
-    try {
-      // Create array of items from cart
-  const items = [{
-    id: product.id,
-    image:product.product_image,
-    name: product.product_name,
-    amount: product.product_amount,
-    sellerid:product.customer_id,
+  // const placeOrder = async () => {
+  //   try {
+  //     // Create array of items from cart
+  // const items = [{
+  //   id: product.id,
+  //   image:product.product_image,
+  //   name: product.product_name,
+  //   amount: product.product_amount,
+  //   sellerid:product.customer_id,
    
-  }];
-  const price= product.product_amount*product.product_price
-      const { data, error } = await supabase
-        .from('ordering')
-        .insert([
-          {
-            id: newUserId,
-            user_id: product.bidder_id,
-          no_items: product.product_amount,
-            total_price: price,
-             items: items
-          },
-        ]);
+  // }];
+  // const price= product.product_amount*product.product_price
+  //     const { data, error } = await supabase
+  //       .from('ordering')
+  //       .insert([
+  //         {
+  //           id: newUserId,
+  //           user_id: product.bidder_id,
+  //         no_items: product.product_amount,
+  //           total_price: price,
+  //            items: items
+  //         },
+  //       ]);
 
-      if (error) {
-        console.error('Error inserting order:', error);
-      } else {
-        console.log('Order placed successfully:', data);
-      }
-    } catch (error) {
-      console.error('Error inserting order:', error);
-    }
-    const { data: updatedProduct, error } = await supabase
-        .from('products_table')
-        .update({ 
-          product_amount:"soldout"
+  //     if (error) {
+  //       console.error('Error inserting order:', error);
+  //     } else {
+  //       console.log('Order placed successfully:', data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error inserting order:', error);
+  //   }
+  //   const { data: updatedProduct, error } = await supabase
+  //       .from('products_table')
+  //       .update({ 
+  //         product_amount:"soldout"
             
-        })
-        .eq('id', product.id)
-        .single();
+  //       })
+  //       .eq('id', product.id)
+  //       .single();
     
-      if (error) {
-        console.error(error);
-      }
-  };
+  //     if (error) {
+  //       console.error(error);
+  //     }
+  // };
   // Start
   function startTimer() {
     if (hours !== 0 || minutes !== 0 || seconds !==0  || days!== 0) {
