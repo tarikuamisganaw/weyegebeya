@@ -6,15 +6,18 @@ import { BsFillPlayFill, BsPauseFill, BsStopFill } from "react-icons/bs";
 import uuid from 'react-uuid'
 import { UserAuth } from "../../context/AuthContext";
 
-export default function CountdownTimer( {productId, product, onsetOrderPlaced, onNotUser,onOrderPlaced  } ) {
+export default function CountdownTimer( {productId, product, onsetOrderPlaced, onNotUser,onOrderPlaced,isOrderly,
+  isSee, onOffer
+   } ) {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [days, setDays] = useState(0);
   const [isRunning, setIsRunning] = useState(null);
   const [createdAt, setCreatedAt] = useState(null);
-  const[orderly,setOrderly]=useState(false)
-  const [see,setSee]=useState(false)
+  const [orderly, setOrderly] = useState(isOrderly);
+  const [see, setSee] = useState(isSee);
+  const [offer, setOffer] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   // End of Time
   let newUserId = uuid();
@@ -42,6 +45,7 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
         setCreatedAt(data.end_date_of_bidding);
         onNotUser(see)
         onsetOrderPlaced(orderly);
+        onOffer(offer)
         
       }
     };
@@ -53,7 +57,7 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
     setIntervalId(id);
     return () => clearInterval(intervalId);
   
-  }, [orderly,see,seconds]);
+  }, [orderly,see,offer,seconds]);
   // Start Pause & Stop functions
   // const placeOrder = async () => {
   //   try {
@@ -131,7 +135,7 @@ export default function CountdownTimer( {productId, product, onsetOrderPlaced, o
         setMinutes(newMinutes);
         setHours(newHours);
       }
-      
+      setOffer(true)
       setOrderly(false)
       setSee(false)
     } else if (difference < 0 && product.bidder_id === user.uid) {

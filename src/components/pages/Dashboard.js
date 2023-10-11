@@ -41,6 +41,10 @@ const Dashboard = () => {
       dataIndex: "id",
     },
     {
+      title: "username",
+      dataIndex: "username",
+    },
+    {
       title: "full_name",
       dataIndex: "full_name",
     },
@@ -63,7 +67,7 @@ const Dashboard = () => {
       let query = supabase.from('profiles').select('*');
   
       if (searchQuery) {
-        query = query.eq('id', searchQuery);
+        query = query.or(`id.eq.${searchQuery}, username.eq.${searchQuery}`);
       }
   
       const { data, error } = await query;
@@ -73,8 +77,6 @@ const Dashboard = () => {
       }
   
       setDatat(data);
-
-        
     } catch (error) {
       console.error('Error fetching profiles:', error.message);
     }

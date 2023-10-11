@@ -90,7 +90,7 @@ const navigate=useNavigate()
         console.log('Successfully submitted');
         setSuccessMessage('Successfully updated');
       }
-      setSuccessMessage('Successfully updated')
+      setSuccessMessage('Successfully submitted')
     }
     
 useEffect(() => {

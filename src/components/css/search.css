@@ -55,6 +55,9 @@
   padding-left: 0.5rem;
   margin-right:20px;
 }
+.search__formi::placeholder {
+  color: #ccc;
+}
 
 .search__formca {
   align-items: center;

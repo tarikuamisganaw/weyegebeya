@@ -24,14 +24,16 @@ const Deatail = () => {
   const [product, setProduct] = useState(null);
   const [rating, setRating] = useState(1);
   const navigate=useNavigate()
+  const [loading, setLoading] = useState(true);
   const {user,logout}=UserAuth()
   const [bidPrice, setBidPrice] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [failMessage, setFailMessage] = useState('');
   const [modali, setModali] = useState(false);
   const [orderi,setOrderi]=useState(false)
-   const[orderly,setOrderly]=useState(false)
-   const [see,setSee]=useState(false)
+  const [orderly, setOrderly] = useState(false);
+  const [see, setSee] = useState(false);
+  const [offer, setOffer] = useState(false);
    const [showPaypal, setShowPaypal] = useState(false);
   const paypal = useRef();
   const handleOrder = () => {
@@ -154,7 +156,11 @@ await logout()
     console.log(newe)
     // Perform any additional logic based on the new orderly value
   };
-
+  const handleOffer = (newe) => {
+    setOffer(newe);
+    console.log(newe)
+    // Perform any additional logic based on the new orderly value
+  };
   const handlelog=()=>{
     navigate('/login')
   }
@@ -201,54 +207,72 @@ await logout()
             </div>
             <p>time left for auction end</p>
         <CountdownTimer    onsetOrderPlaced={handleOrderlyChange} onNotUser={handleSee}
-        productId={product.id} product={product} />
+        productId={product.id} product={product} isOrderly={orderly}
+  isSee={see} onOffer={handleOffer} />
        
-       {orderly ? ( <div> 
-              <p>auction has ended you won the bidding</p>
-              <div><button onClick={handleOrder} style={{ backgroundColor:' #118dda',
-        color:'white',
-        fontSize:'15px',
-        padding: '5px 2px',
-        borderRadius: '5px',
-        borderColor:'transparent',
-        margin:'10px',
-        width:'280px',
-        height:'30px',
-        marginLeft:'0px',
-        cursor: "pointer"
-        
-        }}>Pay for your order</button></div>
-            <div ref={paypal}></div></div>
-        
-      ) : see ? (
-        <p>Auction has ended.</p>
-      ) : (
-        <div>
-       
-        
-        <Button
-          className='w-100 mb-4'
-          style={{
-            backgroundColor: '#783584',
-            color: 'white',
-            fontSize: '15px',
-            padding: '5px 2px',
-            borderRadius: '15px',
-            borderColor: 'transparent',
-            margin: '10px',
-            marginLeft: '50px',
-            width: '150px',
-            height: '30px',
-            marginRight: 'auto',
-            cursor: 'pointer',
-          }}
-          onClick={handleBidClick}
-        >
-          Offer Bid
-        </Button>
-     
-      </div>
-      )}
+       {orderly ? (
+                  <div>
+     {!offer && (
+      <>
+    <p>Auction has ended. You won the bidding.</p> 
+    
+    <div>
+      <button
+        onClick={handleOrder}
+        style={{
+          backgroundColor: '#118dda',
+          color: 'white',
+          fontSize: '15px',
+          padding: '5px 2px',
+          borderRadius: '5px',
+          borderColor: 'transparent',
+          margin: '10px',
+          width: '280px',
+          height: '30px',
+          marginLeft: '0px',
+          cursor: 'pointer',
+        }}
+      >
+        Pay for your order
+      </button>
+    </div>
+    </>)}
+    <div ref={paypal}></div>
+  </div>
+) : see ? (
+  <div>
+  {!offer && (<>
+  <p>Auction has ended.</p>
+  </>
+  )}
+  </div>
+) : orderly === false && (
+  <div>
+    {!see && (
+      <Button
+        className='w-100 mb-4'
+        style={{
+          backgroundColor: '#783584',
+          color: 'white',
+          fontSize: '15px',
+          padding: '5px 2px',
+          borderRadius: '15px',
+          borderColor: 'transparent',
+          margin: '10px',
+          marginLeft: '50px',
+          width: '150px',
+          height: '30px',
+          marginRight: 'auto',
+          cursor: 'pointer',
+        }}
+        onClick={handleBidClick}
+      >
+        Offer Bid
+      </Button>
+    )}
+  </div>
+)} 
+
     
  {failMessage && <Alert variant="success">{failMessage}</Alert>}
   {showModal  && <div className="modal" >

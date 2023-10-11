@@ -13,7 +13,7 @@ const SearchId = ({ onsetSearchQuery}) => {
       
       <div className="search__form" style={{marginLeft: '0px'}}>
         <img className="search__formic" src={search} alt="search" />
-        <input className="search__formi" type="text" placeholder="Search by name of the item"    value={searchQuery} 
+        <input className="search__formi" type="text" placeholder="Search by name or id"    value={searchQuery} 
         onChange={(e) => setSearchQuery(e.target.value)}/>
        
       </div>
