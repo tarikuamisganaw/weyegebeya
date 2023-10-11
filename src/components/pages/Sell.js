@@ -72,9 +72,9 @@ const Sell = ({ toggleModale }) => {
   
     if (profileData) {
       console.log('Successfully submitted');
-      setSuccessMessage('Successfully updated');
+      setSuccessMessage('Successfully submitted');
     }
-    setSuccessMessage('Successfully updated');
+    setSuccessMessage('Successfully submitted');
     setImage("")
     setName("")
     setPrice("")
