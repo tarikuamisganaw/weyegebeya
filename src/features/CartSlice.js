@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-
+import swal from 'sweetalert';
 const initialState={
     cartItems:localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem("cartItems")):[],
     cartTotalQuantity:0,
@@ -14,7 +14,11 @@ reducers:{
     addCart(state,action){
         const itemIndex=state.cartItems.findIndex((item)=>item.id===action.payload.id)
         if(itemIndex>=0){
-            state.cartItems[itemIndex].cartQunatity+=1
+            if (state.cartItems[itemIndex].cartQunatity < action.payload.product_amount) {
+                state.cartItems[itemIndex].cartQunatity+=1
+              }
+             else{ swal ("product amount exceeded ")}
+
         }
         else{
             const tempProduct={...action.payload,cartQunatity:1}

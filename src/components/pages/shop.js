@@ -70,7 +70,7 @@ dispatch(decreaseQuantity(product))
 const incrementCartQuantity = (product) => {
   dispatch(addCart(product))
 };
- const addToCart = (product) => {
+const addToCart = (product) => {
   if(!user){
     swal ("sigup first to add to cart ")
   }else{
