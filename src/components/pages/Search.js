@@ -2,14 +2,17 @@ import React, {useState} from 'react'
 import '../css/search.css'
 import arrow from '../../images/arrow.svg';
 import search from '../../images/search.png';
-
+import wewye from '../../images/favicon.png';
 
 const Search = ({ onsetSearchQuery}) => {
    const [searchQuery, setSearchQuery] = useState('');
   return (
     <div className="search">
     <div className="search__container">
-    <div className='logo' style={{width: '300px',marginLeft: '0px'}}> Weye Gebeya</div>
+ 
+<div className='logo' style={{ width: '600px', marginLeft: '0px', fontFamily: 'Arial', fontSize: '36px', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase', color: 'black', textAlign: 'center' }}>
+WEYE GEBEYA
+</div>
       
       <div className="search__form">
         <img className="search__formic" src={search} alt="search" />

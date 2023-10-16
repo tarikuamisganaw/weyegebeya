@@ -9,7 +9,7 @@ const SearchId = ({ onsetSearchQuery}) => {
   return (
     <div className="search" style={{height:'90px',marginLeft:'0px'}}>
     <div className="search__container" style={{height:'78px',marginBottom:'0px'}}>
-      <div className='logo' style={{width: '500px',marginLeft: '0px'}}> Weye Gebeya</div>
+      <div className='logo' style={{width: '600px', marginLeft: '0px', fontFamily: 'Arial', fontSize: '36px', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase', color: 'black', textAlign: 'center' }}> Weye Gebeya</div>
       
       <div className="search__form" style={{marginLeft: '0px'}}>
         <img className="search__formic" src={search} alt="search" />
