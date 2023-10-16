@@ -10,8 +10,8 @@ const Search = ({ onsetSearchQuery}) => {
     <div className="search">
     <div className="search__container">
  
-<div className='logo' style={{ width: '600px', marginLeft: '0px', fontFamily: 'Arial', fontSize: '36px', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase', color: 'black', textAlign: 'center' }}>
-WEYE GEBEYA
+<div className='logo' style={{ width: '400px', marginLeft: '0px'}}>
+Weye Gebeya
 </div>
       
       <div className="search__form">
