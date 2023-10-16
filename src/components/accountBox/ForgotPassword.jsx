@@ -66,8 +66,8 @@ borderColor:'transparent',
                     </Form>
                     <div className='w-100 text-center mt-2' style={{ marginLeft: '50px',
   marginTop:'20px',}}>
-                        <Link to="/">Sign Up</Link> or
-                        <Link to='/'> Log In</Link>
+                        <Link to="/">back to Home</Link> 
+                       
                     </div>
                     </div>
 
